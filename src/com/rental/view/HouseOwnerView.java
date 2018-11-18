@@ -45,7 +45,7 @@ public class HouseOwnerView extends JFrame {
         shenqing.setBounds(25,300,100,25);
         pingjia=new JLabel("ÆÀ¼Û£º");
         pingjia.setBounds(0,25,100,25);
-        loge=new JLabel(new ImageIcon("F:\\Workspace\\HouseRentalSystem\\image\\youname1.jpg"));
+        loge=new JLabel(new ImageIcon("¡£¡£\\..\\image\\youname1.jpg"));
         loge.setBounds(200,0,400,400);
         tabbedPane.add(shenqing);
         tabbedPane.add(pingjia);

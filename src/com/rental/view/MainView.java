@@ -56,8 +56,8 @@ public class MainView extends JFrame {
 	 */
 public MainView() {
 		
-		String[] backimage= {"F:\\Workspace\\HouseRentalSystem\\image\\loge.jpeg","F:\\Workspace\\HouseRentalSystem\\image\\youname3.jpg","F:\\Workspace\\HouseRentalSystem\\image\\youname1.jpg"};
-		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Workspace\\HouseRentalSystem\\image\\zhu.jpg"));
+		String[] backimage= {"。。\\..\\image\\loge.jpeg","。。\\..\\image\\youname3.jpg","。。\\..\\image\\youname1.jpg"};
+		setIconImage(Toolkit.getDefaultToolkit().getImage("。。\\..\\image\\zhu.jpg"));
 		setTitle("型塁砿尖");
 		setSize(930, 580);
         setLocationRelativeTo(null);
@@ -154,13 +154,13 @@ public MainView() {
 private  JComponent createshouye() {
         
         Topanel = new JPanel(null);
-        Loge=new JLabel(new ImageIcon("F:\\Workspace\\HouseRentalSystem\\image\\youname1.jpg"));
+        Loge=new JLabel(new ImageIcon("。。\\..\\image\\youname1.jpg"));
         Loge.setBounds(0, 0, 700, 95);
         back=new JLabel();
-	    back.setIcon(new ImageIcon("F:\\Workspace\\HouseRentalSystem\\image\\youname1.jpg"));
+	    back.setIcon(new ImageIcon("。。\\..\\image\\youname1.jpg"));
 	    back.setBounds(220, 100, 900, 400);
 	    in=new  JLabel();
-	    in.setIcon(new ImageIcon("F:\\Workspace\\HouseRentalSystem\\image\\timg.jpg"));
+	    in.setIcon(new ImageIcon("。。\\..\\image\\timg.jpg"));
 	    in.setBounds(0, 100, 210, 400);
         
         find=new JButton("朴沫");
@@ -253,7 +253,7 @@ private  JComponent createwoshifangzhu(){
 private  JComponent createwodefangwu() {
     
     JPanel panel = new JPanel(null);
-    back1=new JLabel(new ImageIcon("F:\\Workspace\\HouseRentalSystem\\image\\youname.jpg"));
+    back1=new JLabel(new ImageIcon("。。\\..\\image\\youname.jpg"));
     back1.setBounds(220,50,700,300);
     chengweifangzhu=new JButton("+");
     chengweifangzhu.setBounds(350,400,200,50);
