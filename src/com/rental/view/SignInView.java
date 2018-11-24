@@ -32,7 +32,7 @@ public class SignInView extends JFrame {
 	 * Create the frame.
 	 */
 	public SignInView(JFrame jf) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage("F:\\Workspace\\HouseRentalSystem\\image\\zhu.jpg"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("D:\\eclipsePractice\\HouseRentalSystem\\image\\zhu.jpg"));
 		
 	//	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //		setLocationRelativeTo(relativeWindow);
