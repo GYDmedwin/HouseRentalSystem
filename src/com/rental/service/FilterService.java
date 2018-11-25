@@ -22,7 +22,7 @@ public class FilterService {
 			if(house.type!="-")
 				sql += " and type='" + house.type + "'";
 			if(house.rent!=-1) {
-				switch((int)house.rent) {
+				switch((int)house.rent) {   
 				case 1:
 					sql += " and rent between 0 and 700";
 					break;
