@@ -10,7 +10,7 @@ public class JDBCUtils {
 	
 	static{
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/gjp");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/renting_system");
 		dataSource.setUsername("root");
 		dataSource.setPassword("1234");
 		dataSource.setInitialSize(10);

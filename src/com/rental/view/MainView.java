@@ -11,6 +11,10 @@ import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import com.rental.controller.FilterController;
+import com.rental.domain.HouseBean;
+
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.Font;
@@ -27,6 +31,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Iterator;
+import java.util.List;
 import java.awt.Color;
 import javax.swing.*;
 public class MainView extends JFrame {
@@ -36,11 +42,13 @@ public class MainView extends JFrame {
 	 * @wbp.nonvisual location=30,27
 	 * 
 	 */	
+	 static List<HouseBean> houselist;
+	 static Iterator<HouseBean> it;
 	 static  int isdenglu=0;
-	 static  int i,j,x,y1;
-	 static String w,e2,r,t,q1,w1,e1,r1,t1,a;
+	 static  int i,j,x,y1,dengluandzhuce=0;
+	 static String w,e2,r,t,q1,w1,e1,r1,t1,a,b,c,d,f,g,h;
 	 static JTabbedPane tabbedPane,tabbedPane1;
-	 static String yu_e,deng_lu="denglu", zhu_ce="zhuce",shou_ye="shouye",woshi_fangzhu="woshifangzhu",shai_xuan="shaixuan",_find="find",nicheng;
+	 static String yu_e,deng_lu="denglu", zhu_ce="zhuce",shou_ye="shouye",woshi_fangzhu="woshifangzhu",shai_xuan="shaixuan",_find="find",nicheng,zhanghao;
 	 Box top,vbox,mid;
 	 public static JPanel Topanel;
 	 public static JPanel midpanel1;
@@ -48,16 +56,19 @@ public class MainView extends JFrame {
 	 static JScrollPane scrollPane;
 	 static JLabel in,bac,loge,Loge,back,mfangxing,mhuxing,mshengfeng,mjiage,mshiqu,mxie,mfangxing2,mhuxing2,mshengfeng2,mjiage2,mdizhi,mshiqu2,mxie2,back1,yonghu;
 	 static JButton Shouye,Fangzhu,find,SignIN,SignUP,sousuo,chengweifangzhu;
-	 JTextField textfind,jiage1,dizhi;
+	 JTextField textfind;
+	 static JTextField jiage1;
+	 static JTextField dizhi;
 	 static String[] listData1 ,listData2,listData3,listData4,listshi,listxie;
 	 static JComboBox<String> fangxing,shengfeng,shiqu,xie,jiage,huxing,fangxing1,shengfeng1,shiqu1,xie1,huxing1;	 
+	 
 	/**
 	 * Create the frame.
 	 */
 public MainView() {
 		
-		String[] backimage= {"..\\..\\image\\loge.jpeg","..\\..\\image\\youname3.jpg","..\\..\\image\\youname1.jpg"};
-		setIconImage(Toolkit.getDefaultToolkit().getImage("..\\..\\image\\zhu.jpg"));
+		String[] backimage= {"。。\\..\\image\\loge.jpeg","。。\\..\\image\\youname3.jpg","。。\\..\\image\\youname1.jpg"};
+		setIconImage(Toolkit.getDefaultToolkit().getImage("。。\\..\\image\\zhu.jpg"));
 		setTitle("房屋管理");
 		setSize(930, 580);
         setLocationRelativeTo(null);
@@ -185,8 +196,8 @@ private  JComponent createshouye() {
         mxie.setBounds(50,250, 100, 25);
         listData1=new String[]{"-", "写字楼",  "其他"};
         listData2=new String[]{"-","北京市", "天津市","上海市","重庆市","陕西省","河北省","山西省","辽宁省","吉林省","黑龙江省","江苏省","浙江省","安徽省","福建省","江西省","山东省","河南省","湖北省","湖南省","广东省","广西省","海南省","四川省","贵州省","云南省","西藏","甘肃省","青海省","宁夏","新疆","香港特别行政区","澳门特别行政区","台湾"};
-        listData3=new String[]{"-","300-", "300-500", "500-700", "700+"};
-        listData4=new String[]{"-", "一室一厅", "俩室一厅", "三室一厅"};
+        listData3=new String[]{"-","700-", "700-2000", "2000-5000", "5000+"};
+        listData4=new String[]{"-", "一室一厅", "两室一厅", "三室一厅"};
         listshi=new String[]{"-","西安市","咸阳市", "榆林市", "宝鸡市", "铜川市","渭南市","汉中市","安康市","商洛市","延安市"};
         listxie=new String[]{"-", "碑林区", "莲湖区", "灞桥区","雁塔区","阎良区","未央区","新城区","长安区","临潼区"};
         fangxing=new JComboBox<String>(listData1);
@@ -384,13 +395,13 @@ private static JComponent createzhanghuguanli() {
 /*
  * 动态的jlbel接口带点击事件（点击显示房屋的详细信息）
  * */
-private static void newJLable(String str,int s,int y,int m,int n) {
-	JLabel i=new JLabel(str);
+private static void newJLable(HouseBean hou,int s,int y,int m,int n) {
+	JLabel i=new JLabel(hou.province+hou.city+hou.county+hou.type+hou.h_type);
 	i.setBounds(s,y,m,n);
 	i.setFont(new Font("宋体",Font.BOLD, 30));
 	i.addMouseListener(new MouseListener() {
 	    public void mouseClicked(MouseEvent e) {
-	      new HouseOwnerView(str);
+	      new HouseOwnerView(hou);
 	    }
 
 		@Override
@@ -421,6 +432,7 @@ private static void newJLable(String str,int s,int y,int m,int n) {
 	midpanel2.add(i);
 	midpanel2.repaint();
 }
+
 /*
  * 动态的jlbel接口带点击事件（点击显示账单的处理）
  * */
@@ -727,8 +739,20 @@ public static void showPopupMenu(Component invoker, int x, int y) {
  * 从数据库获得符号条件的房屋信息并创造出jlabel
  * */
 public static void huodefangwuxinxi() {
-	newJLable("房屋信息",10,10,700,25);
+	int i=20;
+	HouseBean house=new HouseBean(e2,t,t1);
+	house.type=w;
+	house.h_type=q1;
+	if(r=="-") houselist=new FilterController().filterHouse(house);
+	else houselist=new FilterController().filterHouse(house,r);
+	it=houselist.iterator();
+	while(it.hasNext()) {
+	newJLable(it.next(),10,i,700,25);
+	i=i+30;
+	}
 }
+
+
 
 /*
  * 从数据库获得房主的账单
@@ -765,10 +789,18 @@ public static void anxiasousuo() {
  * 按下筛选
  * */
 public static void anxiashaxuan() {
+	midpanel2.removeAll();
+	midpanel2.repaint();
 	q1=(String)huxing.getSelectedItem();
-	System.out.println(q1);
+	w=(String)fangxing.getSelectedItem();
+	e2=(String)shengfeng.getSelectedItem();
+	r=(String)jiage	.getSelectedItem();
+	t=(String)shiqu.getSelectedItem();
+	t1=(String)xie.getSelectedItem();
 	huodefangwuxinxi();
 }
+
+
 /*
  * 按下登录或者注册
  * */
