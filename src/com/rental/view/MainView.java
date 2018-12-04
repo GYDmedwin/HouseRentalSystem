@@ -1,817 +1,1103 @@
 package com.rental.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-
-import com.rental.controller.FilterController;
+import com.rental.controller.*;
+import com.rental.domain.BillBean;
 import com.rental.domain.HouseBean;
+import com.rental.domain.OrderBean;
+import com.rental.domain.SeeBean;
 
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import java.awt.Font;
-import java.awt.GridLayout;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import java.awt.Component;
-import javax.swing.SwingConstants;
-import java.awt.Toolkit;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.math.BigDecimal;
 import java.util.Iterator;
 import java.util.List;
-import java.awt.Color;
-import javax.swing.*;
-public class MainView extends JFrame {
 
-	
-	/**
-	 * @wbp.nonvisual location=30,27
-	 * 
-	 */	
-	 static List<HouseBean> houselist;
-	 static Iterator<HouseBean> it;
-	 static  int isdenglu=0;
-	 static  int i,j,x,y1,dengluandzhuce=0;
-	 static String w,e2,r,t,q1,w1,e1,r1,t1,a,b,c,d,f,g,h;
-	 static JTabbedPane tabbedPane,tabbedPane1;
-	 static String yu_e,deng_lu="denglu", zhu_ce="zhuce",shou_ye="shouye",woshi_fangzhu="woshifangzhu",shai_xuan="shaixuan",_find="find",nicheng,zhanghao;
-	 Box top,vbox,mid;
-	 public static JPanel Topanel;
-	 public static JPanel midpanel1;
-	 public static JPanel midpanel2,panel1,paneluiyiuy,panel2,panel3;
-	 static JScrollPane scrollPane;
-	 static JLabel in,bac,loge,Loge,back,mfangxing,mhuxing,mshengfeng,mjiage,mshiqu,mxie,mfangxing2,mhuxing2,mshengfeng2,mjiage2,mdizhi,mshiqu2,mxie2,back1,yonghu;
-	 static JButton Shouye,Fangzhu,find,SignIN,SignUP,sousuo,chengweifangzhu;
-	 JTextField textfind;
-	 static JTextField jiage1;
-	 static JTextField dizhi;
-	 static String[] listData1 ,listData2,listData3,listData4,listshi,listxie;
-	 static JComboBox<String> fangxing,shengfeng,shiqu,xie,jiage,huxing,fangxing1,shengfeng1,shiqu1,xie1,huxing1;	 
-	 
+public class MainView extends JFrame {
+	static List<HouseBean> houselist;
+	static Iterator<HouseBean> it;
+	static int isdenglu = 0;
+	static int i, j, x, y1, dengluandzhuce = 0, i1 = 1000000000;
+	static String w, e2, r, t, q1, w1, e1, r1, t1, a, b, c, d, f, g, h;
+	static JTabbedPane tabbedPane, tabbedPane1;
+	static String yu_e, deng_lu = "denglu", zhu_ce = "zhuce", shou_ye = "shouye", woshi_fangzhu = "woshifangzhu",
+			shai_xuan = "shaixuan", _find = "find", nicheng, zhanghao;
+	Box top, vbox, mid;
+	public static JPanel Topanel, panel, panelshenqing;
+	public static JPanel midpanel1;
+	public static JPanel midpanel2, panel1, paneluiyiuy, panel2, panel3;
+	static JScrollPane scrollPane;
+	static JLabel in, bac, loge, Loge, back, back11, back12, mfangxing, mhuxing, mshengfeng, mjiage, mshiqu, mxie,
+			mfangxing2, mhuxing2, mshengfeng2, mjiage2, mdizhi, mshiqu2, mxie2, back1, yonghu;
+	static JButton Shouye, Fangzhu, find, SignIN, SignUP, sousuo, chengweifangzhu;
+	JTextField textfind;
+	static JTextField jiage1;
+	static JTextField dizhi;
+	static String[] listData1, listData2, listData3, listData4, listshi, listxie;
+	static JComboBox<String> fangxing, shengfeng, shiqu, xie, jiage, huxing, fangxing1, shengfeng1, shiqu1, xie1,
+			huxing1;
+
 	/**
 	 * Create the frame.
 	 */
-public MainView() {
-		
-		String[] backimage= {"。。\\..\\image\\loge.jpeg","。。\\..\\image\\youname3.jpg","。。\\..\\image\\youname1.jpg"};
+
+	public MainView() {
+
+		String[] backimage = { "。。\\..\\image\\gongyu4.png", "。。\\..\\image\\bieshu1.png",
+				"。。\\..\\image\\xiezilou7.png", "。。\\..\\image\\公寓1.png" };
 		setIconImage(Toolkit.getDefaultToolkit().getImage("。。\\..\\image\\zhu.jpg"));
 		setTitle("房屋管理");
 		setSize(930, 580);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("首页",createshouye());
-        tabbedPane.addTab("我是房主", createwoshifangzhu());
-        tabbedPane.addTab("房屋信息",createfangwu() );
-        
-       
-     
-        
+		setLocationRelativeTo(null);
+		setResizable(false);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		tabbedPane = new JTabbedPane();
+		tabbedPane.addTab("首页", createshouye());
+		tabbedPane.addTab("房屋信息", createfangwu());
 
-        tabbedPane.setSelectedIndex(0);
-        
-       
-        setContentPane(tabbedPane);
-        
-        
-        setLocationRelativeTo(null);
-        setVisible(true);
-        for(j=0;j<=1000000000/1.5;j++);
-       
-        	
-        
-        while(1==1) {
-        
-         for(i=0;i<=2;i++) {
-        	 if(isdenglu==1) {isdenglu=0;
-        	 huodefangzhuzhangdan();
-        	 huodefangzhudingdan();
-        	 huodefangzhushenqing();
-        	
-             Topanel.remove(SignIN);
-             yonghu=new JLabel(nicheng);
-             yonghu.setBounds(750, 0, 100, 100);
-             yonghu.setFont(new Font("宋体",Font.BOLD, 30));
-             yonghu.addMouseListener(new MouseListener() {
-         	    public void mouseClicked(MouseEvent e) {
-         	    	 if (e.isMetaDown()) {
-                          showPopupMenu(e.getComponent(), e.getX(), e.getY());
-                      }
-         	    	
-         	    }
+		tabbedPane.setSelectedIndex(0);
 
-         		@Override
-         		public void mouseEntered(MouseEvent arg0) {
-         			// TODO Auto-generated method stub
-         			
-         		}
+		setContentPane(tabbedPane);
 
-         		@Override
-         		public void mouseExited(MouseEvent e) {
-         			// TODO Auto-generated method stub
-         			
-         		}
+		setLocationRelativeTo(null);
+		setVisible(true);
+		for (j = 0; j <= 1000000000 / 1.5; j++)
+			;
 
-         		@Override
-         		public void mousePressed(MouseEvent e) {
-         			// TODO Auto-generated method stub
-         			
-         		}
+		while (1 == 1) {
 
-         		@Override
-         		public void mouseReleased(MouseEvent e) {
-         			// TODO Auto-generated method stub
-         			
-         		}
-         	}
-         	);
-             Topanel.add(yonghu);
-            }
-        	Topanel.remove(back);
-        	Topanel.remove(Loge);
-         	bac=new JLabel();
-         	loge=new JLabel();
-         	loge.setBounds(0, 0, 700, 95);
-     	    bac.setIcon(new ImageIcon(backimage[i]));
-     	    loge.setIcon(new ImageIcon(backimage[i]));
-     	    bac.setBounds(220, 100, 900, 400);
-     	    Topanel.add(loge);
-     	    Topanel.add(bac);
-         	Topanel.repaint() ;
-         	for(j=0;j<=1000000000/1.8;j++);
-         	Topanel.remove(loge);
-         	Topanel.remove(bac);
-         	
-         }} 
-       
+			for (i = 0; i <= 3; i++) {
+				if (isdenglu == 1) {
+					isdenglu = 0;
+					if(SignController.user.isHouseHolder) {
+						tabbedPane.addTab("我是房主", createwoshifangzhu());
+						huodefangzhuzhangdan();
+						huodefangzhudingdan();
+						huodefangzhushenqing();
+						huodefangzhufangwuxinxi();
+					}
+					Topanel.remove(SignIN);
+					yonghu = new JLabel();
+					yonghu.setText(nicheng);
+					yonghu.setIcon(image.gaibiandaxiao("。。\\..\\image\\touxiang.jpg", 60, 60));
+					// yonghu.setHorizontalTextPosition(SwingConstants.CENTER);
+					// yonghu.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+					yonghu.setBounds(730, 0, 200, 100);
+					yonghu.setFont(new Font("宋体", Font.BOLD, 30));
+					yonghu.addMouseListener(new MouseListener() {
+						public void mouseClicked(MouseEvent e) {
+							if (e.isMetaDown()) {
+								showPopupMenu(e.getComponent(), e.getX(), e.getY());
+							}
+
+						}
+
+						@Override
+						public void mouseEntered(MouseEvent arg0) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void mouseExited(MouseEvent e) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void mousePressed(MouseEvent e) {
+							// TODO Auto-generated method stub
+
+						}
+
+						@Override
+						public void mouseReleased(MouseEvent e) {
+							// TODO Auto-generated method stub
+
+						}
+					});
+					Topanel.add(yonghu);
+
+				}
+				Topanel.remove(back);
+				Topanel.remove(Loge);
+				bac = new JLabel();
+				loge = new JLabel();
+				loge.setBounds(0, 0, 700, 95);
+				bac.setIcon(new ImageIcon(backimage[i]));
+				loge.setIcon(new ImageIcon(backimage[i]));
+				bac.setBounds(220, 100, 900, 400);
+				Topanel.add(loge);
+				Topanel.add(bac);
+				Topanel.repaint();
+				for (j = 0; j <= 1000000000 / 1.8; j++)
+					;
+				Topanel.remove(loge);
+				Topanel.remove(bac);
+
+			}
+		}
+
 	}
-/*
- * 首页面板
- * */
-private  JComponent createshouye() {
-        
-        Topanel = new JPanel(null);
-        Loge=new JLabel(new ImageIcon("。。\\..\\image\\youname1.jpg"));
-        Loge.setBounds(0, 0, 700, 95);
-        back=new JLabel();
-	    back.setIcon(new ImageIcon("。。\\..\\image\\youname1.jpg"));
-	    back.setBounds(220, 100, 900, 400);
-	    in=new  JLabel();
-	    in.setIcon(new ImageIcon("。。\\..\\image\\timg.jpg"));
-	    in.setBounds(0, 100, 210, 400);
-        
-        find=new JButton("搜索");
-        find.setBounds(120, 100, 100, 25);
-        SignIN=new JButton("登录/注册");
-        SignIN.setBounds(710, 25, 200, 25);
-     //   SignUP=new JButton("注册");
-     //   SignUP.setBounds(800, 25, 100, 25);
-        textfind=new JTextField(100);
-        textfind.setBounds(10,100 , 100, 25);
-        mfangxing=new JLabel("房型 :");
-        mhuxing=new JLabel("户型 :");
-        mshengfeng=new JLabel("省份 :");
-        mshiqu=new JLabel("市 :");
-        mxie=new JLabel("县区 :");
-        mjiage=new JLabel("价格 :");
-        mshengfeng.setBounds(50,150, 100, 25);
-        mfangxing.setBounds(50,300, 100, 25);
-        mhuxing.setBounds(50,350, 100, 25);
-        mjiage.setBounds(50,400, 100, 25);
-        mshiqu.setBounds(50,200, 100, 25);
-        mxie.setBounds(50,250, 100, 25);
-        listData1=new String[]{"-", "写字楼",  "其他"};
-        listData2=new String[]{"-","北京市", "天津市","上海市","重庆市","陕西省","河北省","山西省","辽宁省","吉林省","黑龙江省","江苏省","浙江省","安徽省","福建省","江西省","山东省","河南省","湖北省","湖南省","广东省","广西省","海南省","四川省","贵州省","云南省","西藏","甘肃省","青海省","宁夏","新疆","香港特别行政区","澳门特别行政区","台湾"};
-        listData3=new String[]{"-","700-", "700-2000", "2000-5000", "5000+"};
-        listData4=new String[]{"-", "一室一厅", "两室一厅", "三室一厅"};
-        listshi=new String[]{"-","西安市","咸阳市", "榆林市", "宝鸡市", "铜川市","渭南市","汉中市","安康市","商洛市","延安市"};
-        listxie=new String[]{"-", "碑林区", "莲湖区", "灞桥区","雁塔区","阎良区","未央区","新城区","长安区","临潼区"};
-        fangxing=new JComboBox<String>(listData1);
-        fangxing.setBounds(110,300 , 100, 25);
-        shengfeng=new JComboBox<String>(listData2);
-        shengfeng.setBounds(110,150 , 100, 25);
-        jiage=new JComboBox<String>(listData3);
-        jiage.setBounds(110,400, 100, 25);
-        huxing=new JComboBox<String>(listData4);
-        huxing.setBounds(110,350 , 100, 25);
-        shiqu=new JComboBox<String>(listshi);
-        shiqu.setBounds(110,200, 100, 25);
-        xie=new JComboBox<String>(listxie);
-        xie.setBounds(110,250 , 100, 25);
-        sousuo=new JButton("筛选");
-        sousuo.setBounds(60,455,100,25);
-       
-        action(this);
-      
-        
-        Topanel.add(Loge);
-        Topanel.add(SignIN);
-     //   Topanel.add(SignUP);
-        Topanel.add(textfind);
-        Topanel.add(find);
-        Topanel.add(fangxing);
-        Topanel.add(shengfeng);
-        Topanel.add(mshengfeng);
-        Topanel.add(mfangxing);
-        Topanel.add(huxing);
-        Topanel.add(jiage);
-        Topanel.add(mhuxing);
-        Topanel.add(mjiage);
-        Topanel.add(sousuo);
-        Topanel.add(back);
-        Topanel.add(mshiqu);
-        Topanel.add(mxie);
-        Topanel.add(shiqu);
-        Topanel.add(xie);
-        Topanel.add(in);
-       
-        
-        return Topanel;
-    }
-/*
- * 我是房主页面
- * */
-private  JComponent createwoshifangzhu(){
-	  tabbedPane1 = new JTabbedPane();
 
-      tabbedPane1.addTab("我的房屋",createwodefangwu());
-      tabbedPane1.addTab("账单",  createzhangdan());
-      tabbedPane1.addTab("订单", createdingdan());
-      tabbedPane1.addTab("申请", createshenqing());
+	/*
+	 * 首页面板
+	 */
+	private JComponent createshouye() {
 
+		Topanel = new JPanel(null);
+		Loge = new JLabel(new ImageIcon("。。\\..\\image\\bieshu1.png"));
+		Loge.setBounds(0, 0, 700, 95);
+		back = new JLabel();
+		back.setIcon(new ImageIcon("。。\\..\\image\\bieshu1.png"));
+		back.setBounds(220, 100, 900, 400);
+		in = new JLabel();
+		in.setIcon(new ImageIcon("。。\\..\\image\\timg.jpg"));
+		in.setBounds(0, 100, 210, 400);
 
-      tabbedPane1.setSelectedIndex(0);
+		find = new JButton("搜索");
+		find.setBounds(120, 100, 100, 25);
+		SignIN = new JButton("登录/注册");
+		SignIN.setBounds(710, 25, 200, 25);
+		textfind = new JTextField(100);
+		textfind.setBounds(10, 100, 100, 25);
+		mfangxing = new JLabel("房型 :");
+		mhuxing = new JLabel("户型 :");
+		mshengfeng = new JLabel("省份 :");
+		mshiqu = new JLabel("市 :");
+		mxie = new JLabel("县区 :");
+		mjiage = new JLabel("价格 :");
+		mshengfeng.setBounds(50, 150, 100, 25);
+		mfangxing.setBounds(50, 300, 100, 25);
+		mhuxing.setBounds(50, 350, 100, 25);
+		mjiage.setBounds(50, 400, 100, 25);
+		mshiqu.setBounds(50, 200, 100, 25);
+		mxie.setBounds(50, 250, 100, 25);
+		listData1 = new String[] { "-", "写字楼", "其他" };
+		listData2 = new String[] { "-", "北京市", "天津市", "上海市", "重庆市", "陕西省", "河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省",
+				"浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "广西省", "海南省", "四川省", "贵州省", "云南省", "西藏",
+				"甘肃省", "青海省", "宁夏", "新疆", "香港特别行政区", "澳门特别行政区", "台湾" };
+		listData3 = new String[] { "-", "700-", "700-2000", "2000-5000", "5000+" };
+		listData4 = new String[] { "-", "一室一厅", "俩室一厅", "三室一厅" };
+		listshi = new String[] { "-", "西安市", "咸阳市", "榆林市", "宝鸡市", "铜川市", "渭南市", "汉中市", "安康市", "商洛市", "延安市" };
+		listxie = new String[] { "-", "碑林区", "莲湖区", "灞桥区", "雁塔区", "阎良区", "未央区", "新城区", "长安区", "临潼区" };
+		fangxing = new JComboBox<String>(listData1);
+		fangxing.setBounds(110, 300, 100, 25);
+		shengfeng = new JComboBox<String>(listData2);
+		shengfeng.setBounds(110, 150, 100, 25);
+		jiage = new JComboBox<String>(listData3);
+		jiage.setBounds(110, 400, 100, 25);
+		huxing = new JComboBox<String>(listData4);
+		huxing.setBounds(110, 350, 100, 25);
+		shiqu = new JComboBox<String>(listshi);
+		shiqu.setBounds(110, 200, 100, 25);
+		xie = new JComboBox<String>(listxie);
+		xie.setBounds(110, 250, 100, 25);
+		sousuo = new JButton("筛选");
+		sousuo.setBounds(60, 455, 100, 25);
 
-	return tabbedPane1;
-}
-/*
- * 我的房屋页面
- * */
-private  JComponent createwodefangwu() {
-    
-    JPanel panel = new JPanel(null);
-    back1=new JLabel(new ImageIcon("。。\\..\\image\\youname.jpg"));
-    back1.setBounds(220,50,700,300);
-    chengweifangzhu=new JButton("+");
-    chengweifangzhu.setBounds(350,400,200,50);
-    jiage1=new JTextField();
-    dizhi=new JTextField();
-    mdizhi=new JLabel("地址 :");
-    mfangxing2=new JLabel("房型 :");
-    mhuxing2=new JLabel("户型 :");
-    mshengfeng2=new JLabel("省份 :");
-    mshiqu2=new JLabel("市区 :");
-    mxie2=new JLabel("县 :");
-    mjiage2=new JLabel("价格 :");
-    mdizhi.setBounds(50,350, 100, 25);
-    mshengfeng2.setBounds(50,50, 100, 25);
-    mfangxing2.setBounds(50,200, 100, 25);
-    mhuxing2.setBounds(50,250, 100, 25);
-    mjiage2.setBounds(50,300, 100, 25);
-    mshiqu2.setBounds(50,100, 100, 25);
-    mxie2.setBounds(50,150, 100, 25);
-    fangxing1=new JComboBox<String>(listData1);
-    fangxing1.setBounds(110,200 , 100, 25);
-    shengfeng1=new JComboBox<String>(listData2);
-    shengfeng1.setBounds(110,50 , 100, 25);
-    dizhi.setBounds(110,350, 500, 25);
-    jiage1.setBounds(110,300, 100, 25);
-    huxing1=new JComboBox<String>(listData4);
-    huxing1.setBounds(110,250 , 100, 25);
-    shiqu1=new JComboBox<String>(listshi);
-    shiqu1.setBounds(110,100, 100, 25);
-    xie1=new JComboBox<String>(listxie);
-    xie1.setBounds(110,150 , 100, 25);
-    action1(this);
-    panel.add(back1);
-    panel.add(dizhi);
-    panel.add(mdizhi);
-    panel.add(fangxing1);
-    panel.add(shengfeng1);
-    panel.add(shiqu1);
-    panel.add(xie1);
-    panel.add(jiage1);
-    panel.add(huxing1);
-    panel.add(chengweifangzhu);
-    panel.add(mfangxing2);
-    panel.add(mshengfeng2);
-    panel.add(mshiqu2);
-    panel.add(mxie2);
-    panel.add(mjiage2);
-    panel.add(mhuxing2);
-    panel.add(chengweifangzhu);
-    return panel;
-}
-/*
- * 账单页面
- * */
-private  JComponent createzhangdan() {
-    
-    panel1 = new JPanel(null);
+		action(this);
 
- 
-    
+		Topanel.add(Loge);
+		Topanel.add(SignIN);
+		Topanel.add(textfind);
+		Topanel.add(find);
+		Topanel.add(fangxing);
+		Topanel.add(shengfeng);
+		Topanel.add(mshengfeng);
+		Topanel.add(mfangxing);
+		Topanel.add(huxing);
+		Topanel.add(jiage);
+		Topanel.add(mhuxing);
+		Topanel.add(mjiage);
+		Topanel.add(sousuo);
+		Topanel.add(back);
+		Topanel.add(mshiqu);
+		Topanel.add(mxie);
+		Topanel.add(shiqu);
+		Topanel.add(xie);
+		Topanel.add(in);
 
-    return panel1;
-}
-/*
- * 订单面板
- * */
-private  JComponent createdingdan() {
-    
-	paneluiyiuy = new JPanel(null);
-    
- 
-    
+		return Topanel;
+	}
 
-    return paneluiyiuy;
-}
-/*
- * 
- * 申请面板
- * 
- * */
-private  JComponent createshenqing() { 
-    
-    panel3 = new JPanel(null);
+	/*
+	 * 我是房主页面
+	 */
+	private JComponent createwoshifangzhu() {
+		tabbedPane1 = new JTabbedPane();
 
- 
-    
+		tabbedPane1.addTab("我的房屋", createwodefangwu());
+		tabbedPane1.addTab("账单", createzhangdan());
+		tabbedPane1.addTab("订单", createdingdan());
+		tabbedPane1.addTab("申请", createshenqing());
 
-    return panel3;
-}
-/*
- * 房屋信息
- * */
-private static JComponent createfangwu() {
-	 //   scrollPane = new JScrollPane(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-	    midpanel2=new JPanel(null);
-	   
-	//    scrollPane.add(midpanel2);
+		tabbedPane1.setSelectedIndex(0);
+
+		return tabbedPane1;
+	}
+
+	/*
+	 * 我的房屋页面
+	 */
+	private JComponent createwodefangwu() {
+
+		panel = new JPanel(null);
+
+		return panel;
+
+	}
+
+	/*
+	 * 账单页面
+	 */
+	private JComponent createzhangdan() {
+
+		panel1 = new JPanel(null);
+
+		return panel1;
+	}
+
+	/*
+	 * 订单面板
+	 */
+	private JComponent createdingdan() {
+
+		paneluiyiuy = new JPanel(null);
+
+		return paneluiyiuy;
+	}
+
+	/*
+	 * 
+	 * 申请面板
+	 * 
+	 */
+	private JComponent createshenqing() {
+
+		panel3 = new JPanel(null);
+
+		return panel3;
+	}
+
+	/*
+	 * 房屋信息
+	 */
+	private static JComponent createfangwu() {
+
+		midpanel2 = new JPanel(null);
+		scrollPane = new JScrollPane(midpanel2, ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		// scrollPane.add(midpanel2);
+
+		return scrollPane;
+	}
+
+	/*
+	 * 我的订单
+	 */
+	private static JComponent createwodedingdan() {
+
+		panel2 = new JPanel(null);
+
+		return panel2;
+	}
+	
+	/*
+	 * 我的申请、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、、
+	 * */
+	private static JComponent createzhanghuguanli() { 
+	    
+	    panelshenqing = new JPanel(null);
+	    
 	 
 	    
 
-	    return  midpanel2;
-}
-/*
- * 我的订单
- * */
-private static JComponent createwodedingdan() { 
-    
-	panel2 = new JPanel(null);
-    
- 
-    
-
-    return panel2;
-}
-
-/*
- * 账户管理
- * */
-private static JComponent createzhanghuguanli() { 
-    
-    JPanel panel1 = new JPanel(null);
-    
- 
-    
-
-    return panel1;
-}
-/*
- * 动态的jlbel接口带点击事件（点击显示房屋的详细信息）
- * */
-private static void newJLable(HouseBean hou,int s,int y,int m,int n) {
-	JLabel i=new JLabel(hou.province+hou.city+hou.county+hou.type+hou.h_type);
-	i.setBounds(s,y,m,n);
-	i.setFont(new Font("宋体",Font.BOLD, 30));
-	i.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	      new HouseOwnerView(hou);
-	    }
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+	    return panelshenqing;
 	}
-	);
-	midpanel2.add(i);
-	midpanel2.repaint();
-}
+	/*
+	 * 我的房屋信息的JLable（用来显示房屋信息）
+	 * */
+	private static void newJLablewodefangwu(HouseBean hou,int s,int y,int m,int n) {
+		JLabel i=new JLabel();
+		JPopupMenu popupMenu1 = new JPopupMenu();
+		JMenuItem edit = new JMenuItem("修改价格");
+		JMenuItem edit2 = new JMenuItem("删除！");
+		popupMenu1.add(edit);
+		popupMenu1.addSeparator();
+		popupMenu1.add(edit2);
+		edit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {//修改价格被点击
+				String inputContent = JOptionPane.showInputDialog(
+						null,
+						"新的价格:",
+						"修改价格 ||"
+				);
+				if(inputContent!=null||inputContent!="") {new HouseController().update(inputContent, hou.house_id);
+					huodefangzhufangwuxinxi();}
+			}
+		});
+		edit2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {//删除被点击
+				new HouseController().delete(hou.house_id);
+				huodefangzhufangwuxinxi();
+			}
+		});
+		if(hou.state==1)
+			i=new JLabel(hou.province+hou.city+hou.county+hou.type+hou.h_type+hou.rent+"  || 带租赁");
+		if(hou.state==2)
+			i=new JLabel(hou.province+hou.city+hou.county+hou.type+hou.h_type+hou.rent+"  || 已租赁");
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		i.addMouseListener(new MouseListener() {
 
-/*
- * 动态的jlbel接口带点击事件（点击显示账单的处理）
- * */
-private static void newJLablezhangdan(String str,int s,int y,int m,int n) {
-	JLabel i=new JLabel(str);
-	i.setBounds(s,y,m,n);
-	i.setFont(new Font("宋体",Font.BOLD, 30));
-	i.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	     
-	    }
+							   public void mouseClicked(MouseEvent e) {
+								   //	public boolean
+								   popupMenu1.show(e.getComponent(), e.getX(), e.getY());
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
+							   }
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+							   @Override
+							   public void mouseEntered(MouseEvent arg0) {
+								   // TODO Auto-generated method stub
 
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+							   }
 
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
+							   @Override
+							   public void mouseExited(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mousePressed(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mouseReleased(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+						   }
+		);
+		panel.add(i);
+		panel.repaint();
+
 	}
-	);
-	panel1.add(i);
-	panel1.repaint();
-}
-/*
- * 动态的jlbel接口带点击事件（点击显示订单的处理）
- * */
-private static void newJLabledingdan(String str,int s,int y,int m,int n) {
-	JLabel i=new JLabel(str);
-	i.setBounds(s,y,m,n);
-	i.setFont(new Font("宋体",Font.BOLD, 30));
-	i.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	     
-	    }
 
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
 
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-	);
-	paneluiyiuy.add(i);
-	paneluiyiuy.repaint();
-}
-/*
- * 动态的jlbel接口带点击事件（点击显示我的订单的处理）
- * */
-private static void newJLablewodedingdan(String str,int s,int y,int m,int n) {
-	JLabel i=new JLabel(str);
-	i.setBounds(s,y,m,n);
-	i.setFont(new Font("宋体",Font.BOLD, 30));
-	i.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	     
-	    }
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-	);
-	panel2.add(i);
-	panel2.repaint();
-}
-/*
- * 动态的jlbel接口带点击事件（点击显示我的申请的处理）
- * */
-private static void newJLableshengqing(String str,int s,int y,int m,int n) {
-	JLabel i=new JLabel(str);
-	i.setBounds(s,y,m,n);
-	i.setFont(new Font("宋体",Font.BOLD, 30));
-	i.addMouseListener(new MouseListener() {
-	    public void mouseClicked(MouseEvent e) {
-	     
-	    }
-
-		@Override
-		public void mouseEntered(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseExited(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mousePressed(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-			
-		}
-	}
-	);
-	panel3.add(i);
-	panel3.repaint();
-}
-/*
- * 获得用户昵称
- * */
-public static void hudenicheng(String str) {
-	nicheng=str;
-}
-
-/*
- *  首页的事件
- * */
-public static void action(JFrame jf) {
-	 	x=0;
-	    
-		SignIN.setActionCommand(deng_lu);
-	//	SignUP.setActionCommand(deng_lu);		
-		find.setActionCommand(_find);
-		sousuo.setActionCommand(shai_xuan);
-		ActionListener listener = new ActionListener() {
-		        public void actionPerformed(ActionEvent e) {
-		       
-		        String command = e.getActionCommand();
-
-		        // 根据动作命令区分被点击的按钮
-		        if (deng_lu.equals(command)) {
-		        	anxiadenglu_zhuce(jf);
-		           
-		        } else if(_find.equals(command)) {
-		        	//按下搜索
-		        	
-		        }else if(shou_ye.equals(command)) {
-		        	System.out.println("sss");
-	                
-	
-		        }else if(shai_xuan.equals(command)) {
-		        	//按下筛选
-		        	tabbedPane.setSelectedIndex(2);
-		        	midpanel2.repaint();
-		        	anxiashaxuan();
-		        	
-		        	
-		        }
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示房屋的详细信息）
+	 * */
+	private static void newJLable(HouseBean hou,int s,int y,int m,int n) {
+		JLabel i=new JLabel(hou.province+hou.city+hou.county+hou.type+hou.h_type);
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 30));
+		i.addMouseListener(new MouseListener() {
+		    public void mouseClicked(MouseEvent e) {
+		      new HouseOwnerView(hou);
 		    }
 
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
 				
-		};
-	
-		SignIN.addActionListener(listener);
-	//	SignUP.addActionListener(listener);
-		find.addActionListener(listener);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+		);
+		midpanel2.add(i);
+		midpanel2.repaint();
 		
-		sousuo.addActionListener(listener);
 	}
-/*
- * 
- * 
- *     我是房主页面的事件
- * 
- * */
-public static void action1(JFrame jf) {
-		chengweifangzhu.setActionCommand(shou_ye);
-		ActionListener listener = new ActionListener() {
-	        public void actionPerformed(ActionEvent e) {
-	       
-	        String command = e.getActionCommand();
-	       if(shou_ye.equals(command)) {
-	    	   int result=JOptionPane.showConfirmDialog(
-	    	            jf,
-	    	            "确认添加？",
-	    	            "提示",
-	    	            JOptionPane.YES_NO_CANCEL_OPTION
-	    	    );
-	    	   
-	    	   if (result==0) {//确认添加
-	    		   System.out.println("yes");
-	    	   }else if(result==1) {//没有确认
-	    		   System.out.println("no");
-	    	   }else{
-                
-	    	   }
-	       }
-	        }
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示账单的处理）
+	 * */
+	private static void newJLablezhangdan(BillBean str,int s,int y,int m,int n) {
+		JLabel i;
+		if(str.pay==1) i=new JLabel(str.type+str.charge+"   ||已支付");
+		else {
+			i=new JLabel(str.type+str.charge+"   ||未支付");
+
+			i.addMouseListener(new MouseListener() {
+								   public void mouseClicked(MouseEvent e) {
+									   int result=JOptionPane.showConfirmDialog(
+											   null,
+											   "确认缴费？",
+											   "提示",
+											   JOptionPane.YES_NO_CANCEL_OPTION
+									   );
+									   if (result==0) {//确认添加
+
+										   huodefangzhuzhangdan();
+										   System.out.println("zhangjian");
+										   if(/*new BillController().isMoneyEnough(str.charge)*/1==1) {
+											   if(/*new BillController().payBill(str.bill_id,str.charge)*/1==1) {
+												   JOptionPane.showMessageDialog(
+														   null,
+														   "缴费成功！",
+														   "",
+														   JOptionPane.WARNING_MESSAGE
+												   );
+												   //huodefangzhuzhangdan(1);
+											   }
+											   else
+												   JOptionPane.showMessageDialog(
+														   null,
+														   "缴费失败！",
+														   "",
+														   JOptionPane.WARNING_MESSAGE
+												   );
+										   }
+										   else {
+											   JOptionPane.showMessageDialog(
+													   null,
+													   "缴费金额不足！请重充值！！",
+													   "",
+													   JOptionPane.WARNING_MESSAGE
+											   );
+										   }
+
+									   }
+
+
+								   }
+
+								   @Override
+								   public void mouseEntered(MouseEvent arg0) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mouseExited(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mousePressed(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mouseReleased(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+							   }
+			);
+		}
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		panel1.add(i);
+		panel1.repaint();
+	}
+
+
+
+
+
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示订单的处理）
+	 * */
+	private static void newJLabledingdan(OrderBean str,int s,int y,int m,int n) {///////////////////////////////////////////////////////////////////
+		JLabel i=new JLabel("姓名："+str.name+"|地址："+str.address+"|租金￥："+str.charge+"|税率 :"+str.tax.multiply(new BigDecimal(100))+"%");
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		i.addMouseListener(new MouseListener() {
+							   public void mouseClicked(MouseEvent e) {
+
+
+							   }
+
+							   @Override
+							   public void mouseEntered(MouseEvent arg0) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mouseExited(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mousePressed(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mouseReleased(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+						   }
+		);
+		paneluiyiuy.add(i);
+		paneluiyiuy.repaint();
+	}
+
+
+
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示我的订单的处理）
+	 * */
+	private static void newJLablewodedingdan(OrderBean str,int s,int y,int m,int n) {///////////////////////////////////////////////////
+		JLabel i=new JLabel(str.name+"|"+str.address+"|"+str.charge);
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		i.addMouseListener(new MouseListener() {
+							   public void mouseClicked(MouseEvent e) {
+
+							   }
+
+							   @Override
+							   public void mouseEntered(MouseEvent arg0) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mouseExited(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mousePressed(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+
+							   @Override
+							   public void mouseReleased(MouseEvent e) {
+								   // TODO Auto-generated method stub
+
+							   }
+						   }
+		);
+		panel2.add(i);
+		panel2.repaint();
+	}
+
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示我的申请的处理）
+	 * */
+	private static void newJLableshengqing(SeeBean seebean,int s,int y,int m,int n) {
+		JLabel i;
+		if(seebean.agree!=0) {
+			if(seebean.agree==1)
+				i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id+"     ||已同意");
+			else
+				i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id+"     ||未同意");
+		 }
+		else {  i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id);
 		
-		};
+		i.addMouseListener(new MouseListener() {
+		    public void mouseClicked(MouseEvent e) {
+		    	 int result=JOptionPane.showConfirmDialog(
+		    	            null,
+		    	            "是否同意该申请？",
+		    	            seebean.name+" | "+seebean.ph_id,
+		    	            JOptionPane.YES_NO_CANCEL_OPTION
+		    	    );
+		    	 if (result==0) {//同意
+		    		 if(new SeeController().isAgree(1,seebean.see_id)) {
+		    			 	huodefangzhushenqing();
+		    			 }
+		    		 
+		    	   }else if(result==1) {//不同意
+		    		   if(new SeeController().isAgree(2,seebean.see_id)) {
+		    			   	huodefangzhushenqing();
+			    		}
+		    		  
+		    	   }else{
+	              
+		    	   }
+		    	 
+		    	 
+		    }
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		}
+		);
+		}
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		panel3.add(i);
+		panel3.repaint();
+	}
+
+	/*
+	 * 动态的jlbel接口带点击事件（点击显示 用户的申请 的处理）
+	 * 
+	 * */
+	private static void newJLablewodeshengqing(SeeBean seebean,int s,int y,int m,int n) {
+		JLabel i=new JLabel();
+		final HouseBean[] hou = new HouseBean[1];
+		if(seebean.agree==0) i=new JLabel(seebean.address+seebean.date+"     ||待处理");
+		else if(seebean.agree==2) i=new JLabel(seebean.address+seebean.date+"     ||申请失败");
+		else { i=new JLabel(seebean.address+seebean.date+"     ||申请成功");
+			i.addMouseListener(new MouseListener() {
+								   public void mouseClicked(MouseEvent e) {
+									   hou[0] =new OrderController().getHouse(seebean.house_num);
+									   int result=JOptionPane.showConfirmDialog(
+											   null,
+											   "价格 ： $ "+ hou[0].rent+" 是否订购？",
+											   " 缴费   |",
+											   JOptionPane.YES_NO_CANCEL_OPTION
+									   );
+									   if (result==0) {//同意
+										   if(new OrderController().isMoneyEnough(hou[0].rent)){
+											   new OrderController().add(hou[0].householder,seebean.house_num, hou[0].rent);
+											   JOptionPane.showMessageDialog(
+													   null,
+													   "订购成功！",
+													   "",
+													   JOptionPane.WARNING_MESSAGE
+											   );
+										   }
+										   else
+											   JOptionPane.showMessageDialog(
+													   null,
+													   "余额不足请先充值！",
+													   "",
+													   JOptionPane.WARNING_MESSAGE
+											   );
+									   }else if(result==1) {//不同意
+
+
+									   }
+
+
+								   }
+
+								   @Override
+								   public void mouseEntered(MouseEvent arg0) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mouseExited(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mousePressed(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+
+								   @Override
+								   public void mouseReleased(MouseEvent e) {
+									   // TODO Auto-generated method stub
+
+								   }
+							   }
+			);}
+		i.setBounds(s,y,m,n);
+		i.setFont(new Font("宋体",Font.BOLD, 20));
+		panelshenqing.add(i);
+		panelshenqing.repaint();
+	}
+
+
+	/*
+	 * 获得用户昵称
+	 * */
+	public static void hudenicheng(String str) {
+		nicheng=str;
+	}
+	/*
+	 * 获得用户账号
+	 * */
+	public static void hudezhanghao(String str) {
+		zhanghao=str;
+	}
+	/*
+	 *  首页的事件
+	 * */
+	public static void action(JFrame jf) {
+		 	x=0;
+		    
+			SignIN.setActionCommand(deng_lu);
+				
+			find.setActionCommand(_find);
+			sousuo.setActionCommand(shai_xuan);
+			ActionListener listener = new ActionListener() {
+			        public void actionPerformed(ActionEvent e) {
+			       
+			        String command = e.getActionCommand();
+
+			        // 根据动作命令区分被点击的按钮
+			        if (deng_lu.equals(command)) {
+			        	anxiadenglu_zhuce(jf);
+			           
+			        } else if(_find.equals(command)) {
+			        	//按下搜索
+			        	
+			        }else if(shou_ye.equals(command)) {
+			        	System.out.println("sss");
+		                
 		
-		chengweifangzhu.addActionListener(listener);
+			        }else if(shai_xuan.equals(command)) {
+			        	//按下筛选
+			        	tabbedPane.setSelectedIndex(1);
+			        	midpanel2.repaint();
+			        	anxiashaxuan();
+			        	
+			        	
+			        }
+			    }
+
+					
+			};
+			
+			SignIN.addActionListener(listener);
+			//	SignUP.addActionListener(listener);
+				find.addActionListener(listener);
+				
+				sousuo.addActionListener(listener);
+			}
+
+		/*
+		 * 菜单栏及对应的事件
+		 * */
+		public static void showPopupMenu(Component invoker, int x, int y) {
+			JPopupMenu popupMenu = new JPopupMenu();
+
+			JMenuItem copyMenuItem = new JMenuItem("我的订单");
+			JMenu pasteMenuItem = new JMenu("余额");
+			JMenu editMenu = new JMenu("账户管理");
+			JMenuItem edit = new JMenuItem("成为房主");
+			JMenuItem edit2 = new JMenuItem("修改信息");
+			JMenuItem fileMenu = new JMenuItem("退出");
+			JMenuItem wodeshengqing=new JMenuItem("我的申请");
+			JMenuItem findMenuItem = new JMenuItem(huodeyu_e());
+			editMenu.add(edit2);
+			if(!SignController.user.isHouseHolder) {editMenu.addSeparator(); editMenu.add(edit);}
+			pasteMenuItem.add(findMenuItem);
+			popupMenu.add(copyMenuItem);
+			popupMenu.addSeparator();
+			popupMenu.add(wodeshengqing);
+			popupMenu.addSeparator();
+			popupMenu.add(editMenu);
+			popupMenu.addSeparator();
+			popupMenu.add(pasteMenuItem);
+			popupMenu.addSeparator();
+			popupMenu.add(fileMenu);
+
+			copyMenuItem.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//订单被点击
+					if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
+					tabbedPane.addTab("我的订单",createwodedingdan() );
+					if(SignController.user.isHouseHolder) tabbedPane.setSelectedIndex(3);
+					else tabbedPane.setSelectedIndex(2);
+					wodedingdan();
+
+				}
+			});
+			wodeshengqing.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//我的申请被点击
+					if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
+					tabbedPane.addTab("我的申请",createzhanghuguanli() );
+					if(SignController.user.isHouseHolder) tabbedPane.setSelectedIndex(3);
+					else tabbedPane.setSelectedIndex(2);
+					wodesheqing();
+
+				}
+			});
+			edit.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//成为房主被点击
+					new SignController().becomeHouseHolder();
+					new chengweihangzhu();
+				}
+			});
+			edit2.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//修改信息被点击
+					new xiugaixingxi();
+				}
+			});
+			fileMenu.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//退出被点击
+					if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
+					if(tabbedPane.getTabCount()==3) tabbedPane.remove(2);
+					Topanel.remove(yonghu);
+					Topanel.add(SignIN);
+
+
+				}
+			});
+			findMenuItem.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {//余额被点击
+					String inputContent = JOptionPane.showInputDialog(
+							null,
+							"￥：:",
+							"输入充值金额"
+
+					);
+					if(inputContent==null||inputContent.equals("")||inputContent.equals("输入充值金额"));
+					else {
+						if(new SignController().topUpMoney(inputContent))
+							JOptionPane.showMessageDialog(
+									null,
+									"充值成功",
+									"",
+									JOptionPane.WARNING_MESSAGE
+							);
+						else
+							JOptionPane.showMessageDialog(
+									null,
+									"充值失败",
+									"",
+									JOptionPane.WARNING_MESSAGE
+							);
+					}
+				}
+			});
+			// ......
+
+			// 在指定位置显示弹出菜单*
+
+			popupMenu.show(invoker, x, y);
+		}
+
+
+	/*
+	 * 从数据库获得符合条件的房屋信息并创造出JLabel
+	 * */
+	public static void huodefangzhufangwuxinxi() {
+		panel.removeAll();
+		panel.repaint();
+		List<HouseBean> houselist1;
+		int i=20;
+		HouseBean house;
+		houselist1=new HouseController().query(SignController.user.householder_id);
+		Iterator<HouseBean> it1;
+		it1=houselist1.iterator();
+		while(it1.hasNext()) {
+			house=it1.next();
+			newJLablewodefangwu(house,10,i,700,25);
+			i=i+30;
+		}
+		JButton find=new JButton("添加房屋信息");
+		find.setBounds(10,i,700,25);
+		find.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new tianjiafangwuxingxi();
+			}
+		});
+		panel.add(find);
+		panel.repaint();
 	}
-/*
- * 菜单栏及对应的事件
- * */
-public static void showPopupMenu(Component invoker, int x, int y) {
-	JPopupMenu popupMenu = new JPopupMenu();
-	
-	JMenuItem copyMenuItem = new JMenuItem("我的订单");
-    JMenu pasteMenuItem = new JMenu("余额");
-    JMenuItem editMenu = new JMenuItem("账户管理");   
-    JMenuItem fileMenu = new JMenuItem("退出");
-    JMenuItem findMenuItem = new JMenuItem(huodeyu_e());
-    pasteMenuItem.add(findMenuItem);
-    popupMenu.add(copyMenuItem);
-    popupMenu.addSeparator(); 
-    popupMenu.add(editMenu);
-    popupMenu.addSeparator();      
-    popupMenu.add(pasteMenuItem);
-    popupMenu.addSeparator(); 
-    popupMenu.add(fileMenu);
 
-    copyMenuItem.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {//订单被点击
-        	if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
-        	tabbedPane.addTab("我的订单",createwodedingdan() );
-        	tabbedPane.setSelectedIndex(3);
-        	wodedingdan();
-        	
-        }
-    });
-   
-    editMenu.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {//账户管理被点击
-        	if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
-        	tabbedPane.addTab("账户管理",createzhanghuguanli()  );
-        	tabbedPane.setSelectedIndex(3);
-        	
-        }
-    });
-    fileMenu.addActionListener(new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {//退出被点击
-        	if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
-            Topanel.remove(yonghu);
-            Topanel.add(SignIN);
-      //      Topanel.add(SignUP);
-        
-        }
-    });
-    // ......
+	/*
+	 * 从数据库获得符号条件的房屋信息并创造出jlabel
+	 * */
+	public static void huodefangwuxinxi() {
+		int i=20;
+		HouseBean house=new HouseBean(e2,t,t1);
+		house.h_type=q1;
+		house.type=w;
+		if(r=="-") houselist=new FilterController().filterHouse(house);
+		else houselist=new FilterController().filterHouse(house,r);
+		it=houselist.iterator();
+		while(it.hasNext()) {
+			house=it.next();
 
-    // 在指定位置显示弹出菜单
-    
-    popupMenu.show(invoker, x, y);
-}
-/*
- * 从数据库获得符号条件的房屋信息并创造出jlabel
- * */
-public static void huodefangwuxinxi() {
-	int i=20;
-	HouseBean house=new HouseBean(e2,t,t1);
-	house.type=w;
-	house.h_type=q1;
-	if(r=="-") houselist=new FilterController().filterHouse(house);
-	else houselist=new FilterController().filterHouse(house,r);
-	it=houselist.iterator();
-	while(it.hasNext()) {
-	newJLable(it.next(),10,i,700,25);
-	i=i+30;
+			newJLable(house,10,i,700,25);
+			i=i+30;
+		}
 	}
-}
 
 
+	/*
+	 * 从数据库获得房主的账单
+	 * */
+	public static void huodefangzhuzhangdan() {/////////////////////////////////////////////////////////////////////////////////////////////
+		panel1.removeAll();
+		panel1.repaint();
+		int i=20;
+		BillBean n = new BillBean();
+		List<BillBean>see= new BillController().getBillList();
+		Iterator<BillBean> it1=see.iterator();
+		while(it1.hasNext()) {
+			n=it1.next();
+			newJLablezhangdan(n,10,i,700,25);
+			i=i+30;
+		}
 
-/*
- * 从数据库获得房主的账单
- * */
-public static void huodefangzhuzhangdan() {
-	newJLablezhangdan("账单",10,10,700,25);
-}
-/*
- * 从数据库获得房主的订单
- * */
-public static void huodefangzhudingdan() {
-	newJLabledingdan("订单",10,10,700,25);
-}
-/*
- * 从数据库获得房主的申请
- * */
-public static void huodefangzhushenqing() {
-	newJLableshengqing("申请",10,10,700,25);
-}
-/*
- * 从数据库获得我的订单信息
- * */
-public static void wodedingdan() {
-	newJLablewodedingdan("我的订单",10,10,700,25);
+	}
+
+	/*
+	 * 从数据库获得房主的订单
+	 * */
+	public static void huodefangzhudingdan() {
+		paneluiyiuy.removeAll();
+		paneluiyiuy.repaint();
+		int i=20;
+		OrderBean n = new OrderBean();
+		List<OrderBean>see= new OrderController().getOrderList_H();
+		Iterator<OrderBean> it1=see.iterator();
+		while(it1.hasNext()) {
+			n=it1.next();
+			newJLabledingdan(n,10,i,700,25);
+			i=i+30;
+		}
+
+	}
+
+	/*
+	 * 从数据库获得房主的申请
+	 * */
+	public static void huodefangzhushenqing() {
+		panel3.removeAll();
+		panel3.repaint();
+		int i=20;
+		SeeBean n = new SeeBean();
+		List<SeeBean>see= new SeeController().getSeeList_H();
+		Iterator<SeeBean> it1=see.iterator();
+		while(it1.hasNext()) {
+			n=it1.next();
+			newJLableshengqing(n,10,i,700,25);
+			i=i+30;
+		}
+
+	}
+	/*
+	 * 从数据库获得我的订单信息
+	 * */
+	public static void wodedingdan() {/////////////////////////////////////////////////////////////////////////////////////////////
+		panel2.removeAll();
+		panel2.repaint();
+		int i=20;
+		OrderBean n = new OrderBean();
+		List<OrderBean>see= new OrderController().getOrderList_T();
+		Iterator<OrderBean> it1=see.iterator();
+		while(it1.hasNext()) {
+			n=it1.next();
+			newJLablewodedingdan(n,10,i,700,25);
+			i=i+30;
+		}
+
+	}
+
+	/*
+	 * 我的申请
+	 *
+	 * */
+	public static void wodesheqing() {
+		panelshenqing.removeAll();
+		panelshenqing.repaint();
+		int i=20;
+		SeeBean n = new SeeBean();
+
+		List<SeeBean>see= new SeeController().getSeeList_T();
+		Iterator<SeeBean> it1=see.iterator();
+		while(it1.hasNext()) {
+			n=it1.next();
+			newJLablewodeshengqing(n,10,i,700,25);
+			i=i+30;
+		}
+
+	}
+
+	/*
+	 * 按下搜索
+	 * */
+	public static void anxiasousuo() {
+
+	}
+	/*
+	 * 按下筛选
+	 * */
+	public static void anxiashaxuan() {
+		midpanel2.removeAll();
+		midpanel2.repaint();
+		q1=(String)huxing.getSelectedItem();
+		w=(String)fangxing.getSelectedItem();
+		e2=(String)shengfeng.getSelectedItem();
+		r=(String)jiage	.getSelectedItem();
+		t=(String)shiqu.getSelectedItem();
+		t1=(String)xie.getSelectedItem();
+		huodefangwuxinxi();
+	}
+	/*
+	 * 按下登录或者注册
+	 * */
+	public static void anxiadenglu_zhuce(JFrame jf) {
+//	if(dengluandzhuce==0) {
+		new SignInView(jf);
+//		dengluandzhuce=1;
+//	}
+	}
+	/*
+	 * 获得余额
+	 * */
+	public static String huodeyu_e() {////////////////////////////////////////////////////////////////////////////////////////
+		return SignController.user.money.toString();
+	}
+
+
 }
 
-/*
- * 按下搜索
- * */
-public static void anxiasousuo() {
-	
-}
-/*
- * 按下筛选
- * */
-public static void anxiashaxuan() {
-	midpanel2.removeAll();
-	midpanel2.repaint();
-	q1=(String)huxing.getSelectedItem();
-	w=(String)fangxing.getSelectedItem();
-	e2=(String)shengfeng.getSelectedItem();
-	r=(String)jiage	.getSelectedItem();
-	t=(String)shiqu.getSelectedItem();
-	t1=(String)xie.getSelectedItem();
-	huodefangwuxinxi();
-}
-
-
-/*
- * 按下登录或者注册
- * */
-public static void anxiadenglu_zhuce(JFrame jf) {
-	 new SignInView(jf);
-}
-/*
- * 获得余额
- * */
-public static String huodeyu_e() {
-	return "1000";
-}
-}
 

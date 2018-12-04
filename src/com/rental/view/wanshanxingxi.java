@@ -1,25 +1,10 @@
 package com.rental.view;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
 import com.rental.controller.SignController;
 
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class wanshanxingxi extends JFrame {
 	private JPanel contentPane;
@@ -58,7 +43,7 @@ public class wanshanxingxi extends JFrame {
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public static void action(JFrame jf) {
+	public static void action( JFrame jf) {
 
 		ActionListener listener = new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

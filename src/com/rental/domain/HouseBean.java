@@ -1,33 +1,35 @@
 package com.rental.domain;
 
+import java.math.BigDecimal;
+
 public class HouseBean {
 	
-	public int house_id;
-	public int householder;
+	public long house_id;
+	public long householder;
 	public String type;
 	public String h_type;
 	public int accommodate;
 	public int state;
-	public double rent = -1;
+	public BigDecimal rent;
 	public int set_top;
 	public String province;
 	public String city;
 	public String county;
 	public String address;
 	
-	public int getHouse_id() {
+	public long getHouse_id() {
 		return house_id;
 	}
 
-	public void setHouse_id(int house_id) {
+	public void setHouse_id(long house_id) {
 		this.house_id = house_id;
 	}
 
-	public int getHouseholder() {
+	public long getHouseholder() {
 		return householder;
 	}
 
-	public void setHouseholder(int householder) {
+	public void setHouseholder(long householder) {
 		this.householder = householder;
 	}
 
@@ -63,11 +65,11 @@ public class HouseBean {
 		this.state = state;
 	}
 
-	public double getRent() {
+	public BigDecimal getRent() {
 		return rent;
 	}
 
-	public void setRent(double rent) {
+	public void setRent(BigDecimal rent) {
 		this.rent = rent;
 	}
 

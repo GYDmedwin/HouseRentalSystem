@@ -12,7 +12,7 @@ import com.rental.utils.JDBCUtils;
 
 public class FilterDao {
 
-	QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
+	private QueryRunner qr = new QueryRunner(JDBCUtils.getDataSource());
 	List<HouseBean> list = new ArrayList<HouseBean>();
 	
 	public List<HouseBean> filterHouse(String sql) {

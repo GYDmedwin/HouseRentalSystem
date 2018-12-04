@@ -99,7 +99,7 @@ public class SignInView extends JFrame {
 		       
 		        if(geshizhengque()){
 		        		user= new SignController().signIn(textfield.getText(), password.getText());
-		        		if(user.ph_id==null) {
+		        		if(user==null) {
 		        			messageSignINDialog1(jf);
 		        		}
 		        		else if(user.complete==0) {

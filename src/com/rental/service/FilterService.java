@@ -1,15 +1,15 @@
 package com.rental.service;
 
-import java.util.List;
-
 import com.rental.dao.FilterDao;
 import com.rental.domain.HouseBean;
+
+import java.util.List;
 
 public class FilterService {
     
 	private FilterDao  fdo = new FilterDao();
 	
-	public List<HouseBean> filterHouse(HouseBean house) {
+	public List<HouseBean> filterHouse(HouseBean house, int temp) {
 		String sql = "select * from house";
 		if(house.province!="-") {
 			sql += " where province='" + house.province + "'";
@@ -21,8 +21,8 @@ public class FilterService {
 				sql += " and h_type='" + house.h_type + "'";
 			if(house.type!="-")
 				sql += " and type='" + house.type + "'";
-			if(house.rent!=-1) {
-				switch((int)house.rent) {   
+			if(house.rent == null) {
+				switch(temp) {
 				case 1:
 					sql += " and rent between 0 and 700";
 					break;

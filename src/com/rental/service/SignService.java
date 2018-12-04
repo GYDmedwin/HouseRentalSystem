@@ -3,14 +3,19 @@ package com.rental.service;
 import com.rental.dao.SignDao;
 import com.rental.domain.UserBean;
 
+import java.math.BigDecimal;
+
 public class SignService {
 
 	private SignDao sdo = new SignDao();
 	
 	public UserBean signIn(String userName, String passWord) {
 		UserBean user = sdo.signIn(userName,passWord);
-		if(user.ph_id!=null) {
-			return sdo.queryInfo();
+		BigDecimal money = user.money;
+		if(user!=null) {
+			user = sdo.queryInfo();
+			user.money = money;
+			return user;
 		}
 		return user;
 	}
@@ -23,7 +28,17 @@ public class SignService {
 		
 		return sdo.fixInfo(user);
 	}
-	
-	
 
+
+	public boolean becomeHouseHolder() {
+		return sdo.becomeHouseHolder();
+	}
+
+	public void deleteHouseHolder() {
+		sdo.deleteHouseHolder();
+	}
+
+	public  boolean topUpMoney(BigDecimal num){
+		return sdo.topUpMoney(num);
+	}
 }

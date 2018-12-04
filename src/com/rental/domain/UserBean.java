@@ -1,5 +1,7 @@
 package com.rental.domain;
 
+import java.math.BigDecimal;
+
 public class UserBean {
 	public long tenant_id;
 	public long getTenant_id() {
@@ -52,4 +54,16 @@ public class UserBean {
 	public int complete;
 	public boolean isHouseHolder = false;
 	public long householder_id;
+
+
+	public BigDecimal getMoney() {
+		return money;
+	}
+
+	public void setMoney(BigDecimal money) {
+		this.money = money;
+	}
+
+	public BigDecimal money;
+
 }
