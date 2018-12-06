@@ -1,5 +1,6 @@
 package com.rental.service;
 
+import com.rental.controller.BillController;
 import com.rental.dao.OrderDao;
 import com.rental.dao.SignDao;
 import com.rental.domain.HouseBean;
@@ -19,6 +20,7 @@ public class OrderService {
 		BigDecimal income = order.charge.multiply(order.tax).setScale(2,BigDecimal.ROUND_HALF_UP);
 		if(!new SignDao().payMoney(order.household,order.charge,income,0))
 			return false;
+		new BillController().addBill(order.household,income,3,order.house_num);
 		order.charge = order.charge.subtract(income);
 		return odo.add(order);
 	}

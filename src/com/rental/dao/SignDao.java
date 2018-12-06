@@ -118,7 +118,7 @@ public class SignDao {
 		Object[] params_T = null;
 
 		if(type == 1 ) {
-			sql_H = "Update account set money=? where phone_num = ?;";
+			sql_H = "Update account set money=money+? where phone_num = ?;";
 			params_H = new Object[]{num, houseHolder};
 			num = SignController.user.money.subtract(num);
 			params_T = new Object[]{num,SignController.user.ph_id};

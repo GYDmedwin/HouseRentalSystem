@@ -121,13 +121,14 @@ public static void querentianjia() {
     f=(String)huxing1.getSelectedItem(); 
     g=(String)shiqu1.getSelectedItem(); 
     h=(String)xie1.getSelectedItem(); 
-   if(new HouseController().add(b, g, h, b,h, c, q, d)) {
+   if(new HouseController().add(b, g, h, a,f, c, q, d)) {
 			   JOptionPane.showMessageDialog(
 			            null,
 			            "Ìí¼Ó³É¹¦£¡",
 			            " ",
 			            JOptionPane.WARNING_MESSAGE
 			    );   
+			   MainView.huodefangzhufangwuxinxi();
    }
    else {
 	   JOptionPane.showMessageDialog(

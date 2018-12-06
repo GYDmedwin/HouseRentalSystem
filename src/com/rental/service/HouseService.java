@@ -1,9 +1,10 @@
 package com.rental.service;
 
-import java.util.List;
-
 import com.rental.dao.HouseDao;
 import com.rental.domain.HouseBean;
+
+import java.math.BigDecimal;
+import java.util.List;
 
 public class HouseService {
        private HouseDao hao = new HouseDao();
@@ -20,7 +21,7 @@ public class HouseService {
 		return hao.query(householder_id);
 	}
 
-	public boolean update(double rent, long house_id) {
+	public boolean update(BigDecimal rent, long house_id) {
 		return hao.update(rent,house_id);
 	}
 }

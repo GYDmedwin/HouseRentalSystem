@@ -10,9 +10,9 @@ public class FilterService {
 	private FilterDao  fdo = new FilterDao();
 	
 	public List<HouseBean> filterHouse(HouseBean house, int temp) {
-		String sql = "select * from house";
+		String sql = "select * from house where state>0";
 		if(house.province!="-") {
-			sql += " where province='" + house.province + "'";
+			sql += " and province='" + house.province + "'";
 			if(house.city!="-")
 				sql += " and city='" + house.city + "'";
 			if(house.county!="-")
@@ -38,6 +38,7 @@ public class FilterService {
 				}
 			}
 		}
+		sql += " order by state desc,set_top desc,house_id asc";
 		return fdo.filterHouse(sql);
 	}
 

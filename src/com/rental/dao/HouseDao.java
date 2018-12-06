@@ -1,10 +1,12 @@
 package com.rental.dao;
 
+import com.rental.controller.BillController;
 import com.rental.domain.HouseBean;
 import com.rental.utils.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -18,6 +20,7 @@ public class HouseDao {
 			Object[] params = {house.householder,house.type,house.h_type,house.accommodate,house.state,
 					house.rent,house.province,house.city,house.county,house.address,house.set_top};
 			if(qr.update(sql, params)!=0) {
+				new BillController().addBill(house.householder,new BigDecimal(300),0,house.house_id);
 				return true;
 			}
 		} catch (SQLException e) {
@@ -47,7 +50,7 @@ public class HouseDao {
 	public List<HouseBean> query(long householder_id) {
 		List<HouseBean> list = null;
 		try {
-			String sql = "Select * from house where householder=?;";
+			String sql = "Select * from house where householder=? and state>-1 order by state desc,set_top desc,house_id asc;";
 			list = qr.query(sql, householder_id, new BeanListHandler<>(HouseBean.class));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,7 +58,7 @@ public class HouseDao {
         return list;
 	}
 
-	public boolean update(double rent, long house_id) {
+	public boolean update(BigDecimal rent, long house_id) {
         try {
 			String sql = "Update house set rent=? where house_id=?;";
 			Object[] params = {rent,house_id};
@@ -67,4 +70,5 @@ public class HouseDao {
 		}
 		return false;
 	}
+
 }

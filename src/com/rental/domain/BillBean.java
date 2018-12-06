@@ -8,6 +8,26 @@ public class BillBean {
 	public BigDecimal charge;
 	public String type;
 	public int pay;
+
+	public long getHouse_dd() {
+		return house_dd;
+	}
+
+	public void setHouse_dd(long house_dd) {
+		this.house_dd = house_dd;
+	}
+
+	public long house_dd;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String address;
 	
 	public long getBill_id() {
 		return bill_id;

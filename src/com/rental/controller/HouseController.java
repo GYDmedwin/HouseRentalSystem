@@ -18,7 +18,7 @@ public class HouseController {
     	   house.type = type;
     	   house.h_type = h_type;
     	   house.address = address;
-    	   house.rent = BigDecimal.valueOf(Double.parseDouble(rent));
+    	   house.rent = new BigDecimal(rent).setScale(2,BigDecimal.ROUND_HALF_UP);
     	   house.state = 0;
     	   house.set_top = 0;
     	   house.accommodate = Integer.parseInt(accommodate);
@@ -31,7 +31,7 @@ public class HouseController {
        }
        
        public boolean update(String rent, long house_id) {
-       	   double rent1 = Double.parseDouble(rent);
+       	   BigDecimal rent1 = new BigDecimal(rent).setScale(2,BigDecimal.ROUND_HALF_UP);
     	   return hs.update(rent1,house_id);
        }
        

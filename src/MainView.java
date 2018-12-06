@@ -356,19 +356,12 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLablewodefangwu(HouseBean hou,int s,int y,int m,int n,int xy) {
 		JLabel i=new JLabel();
-	
-
 		JPopupMenu popupMenu1 = new JPopupMenu();
 		JMenuItem edit = new JMenuItem("修改价格");
 		JMenuItem edit2 = new JMenuItem("删除！");
-		JMenuItem edit3 = new JMenuItem("置顶");
 		popupMenu1.add(edit);
 		popupMenu1.addSeparator();
 		popupMenu1.add(edit2);
-		if(xy!=0) {
-			popupMenu1.addSeparator();
-			popupMenu1.add(edit3);
-		}
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {//修改价格被点击
@@ -388,37 +381,6 @@ public class MainView extends JFrame {
 				huodefangzhufangwuxinxi();
 			}
 		});
-		edit3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {//置顶被点击
-				String inputContent = JOptionPane.showInputDialog(
-						null,
-						"输入置顶费￥:",
-						""
-				);
-				if(inputContent!=null&& !inputContent.equals("") && !inputContent.equals("0")) {
-					
-					if(new BillController().addBill(hou.householder, new BigDecimal(inputContent).setScale(2,BigDecimal.ROUND_HALF_UP),1, hou.house_id)) {
-						JOptionPane.showMessageDialog(
-					            null,
-					            "成功！",
-					            " ",
-					            JOptionPane.WARNING_MESSAGE
-					    );   
-						huodefangzhuzhangdan();
-					}
-					
-					else
-						JOptionPane.showMessageDialog(
-					            null,
-					            "出现错误请重试！",
-					            " ",
-					            JOptionPane.WARNING_MESSAGE
-					    );   
-				}
-			
-			}
-		});
 		if(xy==0) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 未交费");
 			if(hou.type.equals("别墅")) {i.setIcon(image.gaibiandaxiao(bieshu[bieshunum], 192, 120));bieshunum=(bieshunum+1)%6;}
@@ -426,7 +388,7 @@ public class MainView extends JFrame {
 			if(hou.type.equals("公寓")) {i.setIcon(image.gaibiandaxiao(gongyu[gongyunum], 192, 120));gongyunum=(gongyunum+1)%6;}
 			if(hou.type.equals("其他")) {i.setIcon(image.gaibiandaxiao(gongyu[gongyunum], 192, 120));gongyunum=(gongyunum+1)%6;}
 		}
-		if(xy==2) {
+		if(xy==1) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 待租赁");
 			if(hou.type.equals("别墅")) {i.setIcon(image.gaibiandaxiao(bieshu[bieshunum], 192, 120));bieshunum=(bieshunum+1)%6;}
 			if(hou.type.equals("写字楼")){i.setIcon(image.gaibiandaxiao(xiezilou[xiezilounum], 192, 120));xiezilounum=(xiezilounum+1)%6;}
@@ -434,7 +396,7 @@ public class MainView extends JFrame {
 			if(hou.type.equals("其他")) {i.setIcon(image.gaibiandaxiao(gongyu[gongyunum], 192, 120));gongyunum=(gongyunum+1)%6;}
 		}
 			
-		if(xy==1) {
+		if(xy==2) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 已租赁");
 			if(hou.type.equals("别墅")) {i.setIcon(image.gaibiandaxiao(bieshu[bieshunum], 192, 120));bieshunum=(bieshunum+1)%6;}
 			if(hou.type.equals("写字楼")){i.setIcon(image.gaibiandaxiao(xiezilou[xiezilounum], 192, 120));xiezilounum=(xiezilounum+1)%6;}
@@ -489,7 +451,7 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLable(HouseBean hou,int s,int y,int m,int n,int xy,JFrame jf) {
 		JLabel i=new JLabel(hou.province+" | "+hou.city+" | "+hou.county+" | "+hou.type+" | "+hou.h_type);
-		if(xy==2) {
+		if(xy==1) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 待租赁");
 			if(hou.type.equals("别墅")) {i.setIcon(image.gaibiandaxiao(bieshu[bieshunum], 192, 120));bieshunum=(bieshunum+1)%6;}
 			if(hou.type.equals("写字楼")){i.setIcon(image.gaibiandaxiao(xiezilou[xiezilounum], 192, 120));xiezilounum=(xiezilounum+1)%6;}
@@ -497,7 +459,7 @@ public class MainView extends JFrame {
 			if(hou.type.equals("其他")) {i.setIcon(image.gaibiandaxiao(gongyu[gongyunum], 192, 120));gongyunum=(gongyunum+1)%6;}
 		}
 			
-		if(xy==1) {
+		if(xy==2) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 已租赁");
 			if(hou.type.equals("别墅")) {i.setIcon(image.gaibiandaxiao(bieshu[bieshunum], 192, 120));bieshunum=(bieshunum+1)%6;}
 			if(hou.type.equals("写字楼")){i.setIcon(image.gaibiandaxiao(xiezilou[xiezilounum], 192, 120));xiezilounum=(xiezilounum+1)%6;}
@@ -549,14 +511,10 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLablezhangdan(BillBean str,int s,int y,int m,int n) {
 		JLabel i;
-		int type = -1;
-		if(str.type.equals("手续费")) type=0;
-		else if(str.type.equals("置顶费")) type=1;
-		if(str.pay==1) i=new JLabel(str.address+str.type+str.charge+"   ||已支付");
+		if(str.pay==1) i=new JLabel(str.type+str.charge+"   ||已支付");
 		else {
-			i=new JLabel(str.address+str.type+str.charge+"   ||未支付");
+			i=new JLabel(str.type+str.charge+"   ||未支付");
 
-			int finalType = type;
 			i.addMouseListener(new MouseListener() {
 								   public void mouseClicked(MouseEvent e) {
 									   int result=JOptionPane.showConfirmDialog(
@@ -570,7 +528,7 @@ public class MainView extends JFrame {
 										   
 										  
 										   if(new BillController().isMoneyEnough(str.charge)) {
-											   if(new BillController().payBill(str.bill_id,str.charge,str.house_dd, finalType)) {
+											   if(new BillController().payBill(str.bill_id,str.charge)) {
 												   JOptionPane.showMessageDialog(
 														   null,
 														   "缴费成功！",
@@ -578,7 +536,6 @@ public class MainView extends JFrame {
 														   JOptionPane.WARNING_MESSAGE
 												   );
 												   huodefangzhuzhangdan();
-												   huodefangzhufangwuxinxi();
 											   }
 											   else
 												   JOptionPane.showMessageDialog(
@@ -821,7 +778,6 @@ public class MainView extends JFrame {
 													   "",
 													   JOptionPane.WARNING_MESSAGE
 											   );
-											   wodedingdan();
 										   }
 										   else
 											   JOptionPane.showMessageDialog(
