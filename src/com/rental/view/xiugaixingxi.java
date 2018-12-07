@@ -1,21 +1,10 @@
 package com.rental.view;
 
-import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import com.rental.controller.SignController;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class xiugaixingxi extends JFrame {
 	
@@ -31,13 +20,13 @@ public class xiugaixingxi extends JFrame {
 		setTitle("修改信息");
 		setSize(300, 300);
 		contentPane=new JPanel(null);
-		textfield1=new JTextField("请输入姓名");
+		textfield1=new JTextField(SignController.user.name);
 		textfield1.setBounds(50,30,200,30);
-		textfield2=new JTextField("请输入地址");
+		textfield2=new JTextField(SignController.user.adress);
 		textfield2.setBounds(50,70,200,25);
-		textfield3=new JTextField("请输入生日xxxx-xx-xx");
+		textfield3=new JTextField(SignController.user.birth);
 		textfield3.setBounds(50,110,200,25);
-		textfield4=new JTextField("请输入性别");
+		textfield4=new JTextField(SignController.user.sex);
 		textfield4.setBounds(50,150,200,25);
 		wanshan=new JButton("修改信息");
 		wanshan.setBounds(50,200,200,25);

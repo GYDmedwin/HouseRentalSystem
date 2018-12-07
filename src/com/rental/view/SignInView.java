@@ -1,32 +1,16 @@
 package com.rental.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
+import com.rental.controller.SignController;
+import com.rental.domain.UserBean;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.border.EmptyBorder;
-
-import com.rental.controller.SignController;
-import com.rental.domain.UserBean;
-
-import java.awt.Toolkit;
 
 public class SignInView extends JFrame {
 
@@ -47,16 +31,16 @@ public class SignInView extends JFrame {
 	 */
 	public SignInView(JFrame jf) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("。。\\..\\image\\zhu.jpg"));
-		
+		setResizable(false);
 	//	setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 //		setLocationRelativeTo(relativeWindow);
-		
-		textfield=new JTextField(10);
+		//setSize(300,200);
+		textfield=new JTextField(13);
         JPanel panel01 = new JPanel();
-        panel01.add(new JLabel("用户名"));
+        panel01.add(new JLabel("手机号"));
         panel01.add(textfield);
 
-        password=new JPasswordField(10);
+        password=new JPasswordField(13);
         JPanel panel02 = new JPanel();
         panel02.add(new JLabel("密   码"));
         panel02.add(password);
@@ -65,11 +49,12 @@ public class SignInView extends JFrame {
         JPanel panel03 = new JPanel(new FlowLayout(FlowLayout.CENTER));
         SignIN=new JButton("登录");
         SignUP=new JButton("注册");
-        
+        JLabel l=new JLabel("   ");
         action(this);
         
         
         panel03.add(SignIN);
+		panel03.add(l);
         panel03.add(SignUP);
 
  
@@ -80,10 +65,10 @@ public class SignInView extends JFrame {
 
         setContentPane(vBox);
 
-        pack();
+		pack();
         setLocationRelativeTo(null);
         setVisible(true);
-    //    MainView.dengluandzhuce=0;
+
     }
 	public static void action(JFrame jf) {
 		SignIN.setActionCommand(deng_lu);
@@ -115,7 +100,7 @@ public class SignInView extends JFrame {
 	         		}
 		        }
 		        else{
-		        	new  wanshanxingxi();
+
 		        	messageSignINDialog3(jf);
 		        	password.setText(null);
 		        }
@@ -125,7 +110,10 @@ public class SignInView extends JFrame {
 		        	if(geshizhengque()){
 		          		i= new SignController().signUp(textfield.getText(), password.getText());
 		        		if(!i) messageSignUPDialog(jf);
-		        		else messageSignUPDialog2(jf);  jf.dispose();
+		        		else {
+							new SignController().signIn(textfield.getText(), password.getText());
+							new wanshanxingxi();
+						}  jf.dispose();
 		        	}
 		        	else{
 		        		messageSignINDialog3(jf);
@@ -187,7 +175,7 @@ public static void messageSignUPDialog(JFrame jf) {
 public static void messageSignINDialog1(JFrame jf) {
 	JOptionPane.showMessageDialog(
             jf,
-            "用户不存在",
+            "用户名或密码错误",
             "错误！",
             JOptionPane.WARNING_MESSAGE
     );
@@ -228,7 +216,7 @@ public static boolean isMobileNO(String mobiles) {
 public static void messageSignINDialog3(JFrame jf) {
 	JOptionPane.showMessageDialog(
             jf,
-            "请输入正确的用户名和密码",
+            "手机号（11位） 密码（6-16位）",
             " ",
             JOptionPane.WARNING_MESSAGE
     );

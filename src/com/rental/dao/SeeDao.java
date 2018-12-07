@@ -46,7 +46,7 @@ public class SeeDao {
         				"FROM\r\n" + 
         				"    See_house\r\n" + 
         				"INNER JOIN house ON (house.house_id = see_house.house_num)\r\n" + 
-        				"INNER JOIN tenant ON (tenant.tenant_id = see_house.tenant) WHERE house.householder=?";
+        				"INNER JOIN tenant ON (tenant.tenant_id = see_house.tenant) WHERE house.householder=? order by See_house.see_id desc";
     			List<SeeBean> list = 
     					qr.query(sql, SignController.user.householder_id, new BeanListHandler<>(SeeBean.class));
     			return list;
@@ -68,7 +68,7 @@ public class SeeDao {
         			"See_house.agree\r\n" + 
         			"FROM\r\n" + 
         			"    See_house\r\n" + 
-        			"INNER JOIN house ON (house.house_id = see_house.house_num) where see_house.tenant=?;";
+        			"INNER JOIN house ON (house.house_id = see_house.house_num) where see_house.tenant=? order by See_house.see_id desc;";
         	List<SeeBean> list = 
 					qr.query(sql, SignController.user.tenant_id, new BeanListHandler<>(SeeBean.class));
         		return list;

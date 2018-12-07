@@ -19,10 +19,10 @@ public class chengweihangzhu extends JFrame {
 	static boolean i;
 	static JComboBox<String> fangxing,shengfeng,shiqu,xie,jiage,huxing,fangxing1,shengfeng1,shiqu1,xie1,huxing1;	
 	public chengweihangzhu(){
-		listData1=new String[]{"-", "写字楼",  "其他"};
+		listData1=new String[]{"-", "写字楼","别墅","公寓", "其他"};
 	    listData2=new String[]{"-","北京市", "天津市","上海市","重庆市","陕西省","河北省","山西省","辽宁省","吉林省","黑龙江省","江苏省","浙江省","安徽省","福建省","江西省","山东省","河南省","湖北省","湖南省","广东省","广西省","海南省","四川省","贵州省","云南省","西藏","甘肃省","青海省","宁夏","新疆","香港特别行政区","澳门特别行政区","台湾"};
 	    listData3=new String[]{"-","700-", "700-2000", "2000-5000", "5000+"};
-	    listData4=new String[]{"-", "一室一厅", "俩室一厅", "三室一厅"};
+	    listData4=new String[]{"-", "一室一厅", "两室一厅", "三室一厅"};
 	    listshi=new String[]{"-","西安市","咸阳市", "榆林市", "宝鸡市", "铜川市","渭南市","汉中市","安康市","商洛市","延安市"};
 	    listxie=new String[]{"-", "碑林区", "莲湖区", "灞桥区","雁塔区","阎良区","未央区","新城区","长安区","临潼区"};
 		setResizable(false);
@@ -95,6 +95,8 @@ public class chengweihangzhu extends JFrame {
 			public void windowClosing(WindowEvent e) {
 				dispose();
 				new SignController().deleteHouseHolder();
+				if(MainView.tabbedPane.getTabCount()==4) MainView.tabbedPane.remove(3);
+				if(MainView.tabbedPane.getTabCount()==3) MainView.tabbedPane.remove(2);
 			}
 		});
 
@@ -132,13 +134,14 @@ public class chengweihangzhu extends JFrame {
 		f=(String)huxing1.getSelectedItem();
 		g=(String)shiqu1.getSelectedItem();
 		h=(String)xie1.getSelectedItem();
-		if(new HouseController().add(b, g, h, b,h, c, q, d)) {
+		if(new HouseController().add(b, g, h, a,f, c, q, d)) {
 			JOptionPane.showMessageDialog(
 					null,
 					"添加成功！您已成为房主！",
 					" ",
 					JOptionPane.WARNING_MESSAGE
 			);
+			MainView.huodefangzhufangwuxinxi();
 		}
 		else {
 			JOptionPane.showMessageDialog(
@@ -148,7 +151,8 @@ public class chengweihangzhu extends JFrame {
 					JOptionPane.WARNING_MESSAGE
 			);
 			new SignController().deleteHouseHolder();
-
+			if(MainView.tabbedPane.getTabCount()==4) MainView.tabbedPane.remove(3);
+			if(MainView.tabbedPane.getTabCount()==3) MainView.tabbedPane.remove(2);
 		}
 
 

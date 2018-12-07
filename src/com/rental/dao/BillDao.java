@@ -27,7 +27,7 @@ public class BillDao {
                     "bill.pay\n" +
                     "FROM\n" +
                     "    bill\n" +
-                    "INNER JOIN house ON (house.house_id = bill.house_dd) where bill.householder_num=?";
+                    "INNER JOIN house ON (house.house_id = bill.house_dd) where bill.householder_num=? order by bill.pay,bill.bill_id desc";
             List<BillBean> list = qr.query(sql, new BeanListHandler<>(BillBean.class), SignController.user.householder_id);
             return list;
         } catch (SQLException e) {
@@ -36,10 +36,15 @@ public class BillDao {
         return null;
     }
 
-    public boolean payBill(long bill_id) {
+    public boolean payBill(BillBean bill) {
         try {
             String sql = "Update bill set pay = 1 where bill_id = ?";
-            if (qr.update(sql, bill_id) != 0) {
+            if (qr.update(sql, bill.bill_id) != 0) {
+                if(bill.type.equals("ÊÖÐø·Ñ")) {
+                    sql = "Update house set state = 2 where house_id = ?";
+                    if(qr.update(sql,bill.house_dd)!=0)
+                        return true;
+                }
                 return true;
             }
         } catch (SQLException e) {

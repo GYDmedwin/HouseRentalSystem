@@ -55,7 +55,7 @@ public class MainView extends JFrame {
 		String[] backimage = { "。。\\..\\image\\gongyu4.png", "。。\\..\\image\\bieshu1.png",
 				"。。\\..\\image\\xiezilou7.png", "。。\\..\\image\\公寓1.png" };
 		setIconImage(Toolkit.getDefaultToolkit().getImage("。。\\..\\image\\zhu.jpg"));
-		setTitle("房屋管理");
+		setTitle("西电小租");
 		setSize(930, 580);
 		setLocationRelativeTo(null);
 		setResizable(false);
@@ -181,12 +181,12 @@ public class MainView extends JFrame {
 		mjiage.setBounds(50, 400, 100, 25);
 		mshiqu.setBounds(50, 200, 100, 25);
 		mxie.setBounds(50, 250, 100, 25);
-		listData1 = new String[] { "-", "写字楼", "其他" };
+		listData1 = new String[] { "-", "写字楼","别墅","公寓", "其他" };
 		listData2 = new String[] { "-", "北京市", "天津市", "上海市", "重庆市", "陕西省", "河北省", "山西省", "辽宁省", "吉林省", "黑龙江省", "江苏省",
 				"浙江省", "安徽省", "福建省", "江西省", "山东省", "河南省", "湖北省", "湖南省", "广东省", "广西省", "海南省", "四川省", "贵州省", "云南省", "西藏",
 				"甘肃省", "青海省", "宁夏", "新疆", "香港特别行政区", "澳门特别行政区", "台湾" };
 		listData3 = new String[] { "-", "700-", "700-2000", "2000-5000", "5000+" };
-		listData4 = new String[] { "-", "一室一厅", "俩室一厅", "三室一厅" };
+		listData4 = new String[] { "-", "一室一厅", "两室一厅", "三室一厅" };
 		listshi = new String[] { "-", "西安市", "咸阳市", "榆林市", "宝鸡市", "铜川市", "渭南市", "汉中市", "安康市", "商洛市", "延安市" };
 		listxie = new String[] { "-", "碑林区", "莲湖区", "灞桥区", "雁塔区", "阎良区", "未央区", "新城区", "长安区", "临潼区" };
 		fangxing = new JComboBox<String>(listData1);
@@ -356,12 +356,13 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLablewodefangwu(HouseBean hou,int s,int y,int m,int n,int xy) {
 		JLabel i=new JLabel();
-	
+
 
 		JPopupMenu popupMenu1 = new JPopupMenu();
 		JMenuItem edit = new JMenuItem("修改价格");
 		JMenuItem edit2 = new JMenuItem("删除！");
 		JMenuItem edit3 = new JMenuItem("置顶");
+		JMenuItem edit4 = new JMenuItem("缴纳服务费！");
 		popupMenu1.add(edit);
 		popupMenu1.addSeparator();
 		popupMenu1.add(edit2);
@@ -369,15 +370,33 @@ public class MainView extends JFrame {
 			popupMenu1.addSeparator();
 			popupMenu1.add(edit3);
 		}
+		else {
+			popupMenu1.addSeparator();
+			popupMenu1.add(edit4);
+		}
+		edit4.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {//删除被点击
+				if(new BillController().addBill(hou.householder,new BigDecimal(300),0,hou.house_id)){
+					JOptionPane.showMessageDialog(
+							null,
+							"成功！请到账单交费！",
+							" ",
+							JOptionPane.WARNING_MESSAGE
+					);
+					huodefangzhuzhangdan();
+				}
+			}
+		});
 		edit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {//修改价格被点击
 				String inputContent = JOptionPane.showInputDialog(
 						null,
 						"新的价格:",
-						"修改价格 ||"
+						hou.rent.toString()
 				);
-				if(inputContent!=null||inputContent!="") {new HouseController().update(inputContent, hou.house_id);
+				if(inputContent!=null&&!inputContent.equals("")) {new HouseController().update(inputContent, hou.house_id);
 					huodefangzhufangwuxinxi();}
 			}
 		});
@@ -401,7 +420,7 @@ public class MainView extends JFrame {
 					if(new BillController().addBill(hou.householder, new BigDecimal(inputContent).setScale(2,BigDecimal.ROUND_HALF_UP),1, hou.house_id)) {
 						JOptionPane.showMessageDialog(
 					            null,
-					            "成功！",
+					            "成功！请到账单交费！",
 					            " ",
 					            JOptionPane.WARNING_MESSAGE
 					    );   
@@ -478,6 +497,8 @@ public class MainView extends JFrame {
 							   }
 						   }
 		);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		panel.add(i);
 		panel.repaint();
 
@@ -540,6 +561,8 @@ public class MainView extends JFrame {
 			}
 		}
 		);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		midpanel2.add(i);
 		midpanel2.repaint();
 		
@@ -552,9 +575,9 @@ public class MainView extends JFrame {
 		int type = -1;
 		if(str.type.equals("手续费")) type=0;
 		else if(str.type.equals("置顶费")) type=1;
-		if(str.pay==1) i=new JLabel(str.address+str.type+str.charge+"   ||已支付");
+		if(str.pay==1) i=new JLabel("地址："+str.address+"| "+str.type+"| "+str.charge+"   ||已支付");
 		else {
-			i=new JLabel(str.address+str.type+str.charge+"   ||未支付");
+			i=new JLabel("地址："+str.address+"| "+str.type+"| "+str.charge+"   ||未支付");
 
 			int finalType = type;
 			i.addMouseListener(new MouseListener() {
@@ -570,7 +593,7 @@ public class MainView extends JFrame {
 										   
 										  
 										   if(new BillController().isMoneyEnough(str.charge)) {
-											   if(new BillController().payBill(str.bill_id,str.charge,str.house_dd, finalType)) {
+											   if(new BillController().payBill(str)) {
 												   JOptionPane.showMessageDialog(
 														   null,
 														   "缴费成功！",
@@ -628,8 +651,10 @@ public class MainView extends JFrame {
 							   }
 			);
 		}
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		i.setBounds(s,y,m,n);
-		i.setFont(new Font("宋体",Font.BOLD, 20));
+		i.setFont(new Font("宋体",Font.BOLD, 30));
 		panel1.add(i);
 		panel1.repaint();
 	}
@@ -676,6 +701,8 @@ public class MainView extends JFrame {
 							   }
 						   }
 		);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		paneluiyiuy.add(i);
 		paneluiyiuy.repaint();
 	}
@@ -691,7 +718,32 @@ public class MainView extends JFrame {
 		i.setFont(new Font("宋体",Font.BOLD, 20));
 		i.addMouseListener(new MouseListener() {
 							   public void mouseClicked(MouseEvent e) {
-								   new pingjia(str);
+								   int result=JOptionPane.showConfirmDialog(
+										   null,
+										   "是否退房？",
+										   "提示",
+										   JOptionPane.YES_NO_CANCEL_OPTION
+								   );
+								   if(result==0) {//确定被点击
+									   if(new OrderController().checkOut(str.house_num)) {
+										   JOptionPane.showMessageDialog(
+												   null,
+												   "退房成功！请评价该房屋",
+												   "",
+												   JOptionPane.WARNING_MESSAGE
+										   );
+										   new pingjia(str);
+									   }
+									   else
+										   JOptionPane.showMessageDialog(
+												   null,
+												   "退房失败！请重试",
+												   "",
+												   JOptionPane.WARNING_MESSAGE
+										   );
+
+								   }
+
 							   }
 
 							   @Override
@@ -719,15 +771,20 @@ public class MainView extends JFrame {
 							   }
 						   }
 		);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		panel2.add(i);
 		panel2.repaint();
 	}
+
 
 	/*
 	 * 动态的jlbel接口带点击事件（点击显示我的申请的处理）
 	 * */
 	private static void newJLableshengqing(SeeBean seebean,int s,int y,int m,int n) {
 		JLabel i;
+		JLabel j=new JLabel("___________________________________________________________________________");
+		j.setForeground(Color.BLACK);
 		if(seebean.agree!=0) {
 			if(seebean.agree==1)
 				i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id+"     ||已同意");
@@ -787,9 +844,13 @@ public class MainView extends JFrame {
 		}
 		);
 		}
+		j.setBounds(s,y+10,m,n);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		i.setBounds(s,y,m,n);
 		i.setFont(new Font("宋体",Font.BOLD, 20));
 		panel3.add(i);
+		panel3.add(j);
 		panel3.repaint();
 	}
 
@@ -799,6 +860,8 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLablewodeshengqing(SeeBean seebean,int s,int y,int m,int n) {
 		JLabel i=new JLabel();
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+		j.setForeground(Color.BLACK);
 		final HouseBean[] hou = new HouseBean[1];
 		if(seebean.agree==0) i=new JLabel(seebean.address+seebean.date+"     ||待处理");
 		else if(seebean.agree==2) i=new JLabel(seebean.address+seebean.date+"     ||申请失败");
@@ -806,22 +869,41 @@ public class MainView extends JFrame {
 			i.addMouseListener(new MouseListener() {
 								   public void mouseClicked(MouseEvent e) {
 									   hou[0] =new OrderController().getHouse(seebean.house_num);
+									   String[] selectionValues = new String[]{"1", "2", "3","4","5","6","7","8","9","10","11","12"};
+
+
+									   String inputContent = (String) JOptionPane.showInputDialog(
+											   null,
+											   "请选择租赁时长（月）: ",
+											   "提示",
+											   JOptionPane.PLAIN_MESSAGE,
+											   null,
+											   selectionValues,
+											   selectionValues[0]
+									   );
 									   int result=JOptionPane.showConfirmDialog(
 											   null,
-											   "价格 ： $ "+ hou[0].rent+" 是否订购？",
-											   " 缴费   |",
+											   "确认订购你需要缴纳￥"+hou[0].rent.multiply( new BigDecimal(inputContent) ).setScale(2,BigDecimal.ROUND_HALF_UP),
+											   "提示",
 											   JOptionPane.YES_NO_CANCEL_OPTION
 									   );
-									   if (result==0) {//同意
-										   if(new OrderController().isMoneyEnough(hou[0].rent)){
-											   new OrderController().add(hou[0].householder,seebean.house_num, hou[0].rent);
-											   JOptionPane.showMessageDialog(
-													   null,
-													   "订购成功！",
-													   "",
-													   JOptionPane.WARNING_MESSAGE
-											   );
-											   wodedingdan();
+									   if(result==0) {
+										   if(new OrderController().isMoneyEnough(hou[0].rent.multiply( new BigDecimal(inputContent) ).setScale(2,BigDecimal.ROUND_HALF_UP))){
+											   if(new OrderController().add(hou[0].householder,hou[0].house_id, hou[0].rent.multiply( new BigDecimal(inputContent) ).setScale(2,BigDecimal.ROUND_HALF_UP),inputContent)) {
+												   JOptionPane.showMessageDialog(
+														   null,
+														   "订购成功！",
+														   "",
+														   JOptionPane.WARNING_MESSAGE
+												   );
+											   }
+											   else
+												   JOptionPane.showMessageDialog(
+														   null,
+														   "订购失败！",
+														   "",
+														   JOptionPane.WARNING_MESSAGE
+												   );
 										   }
 										   else
 											   JOptionPane.showMessageDialog(
@@ -830,9 +912,6 @@ public class MainView extends JFrame {
 													   "",
 													   JOptionPane.WARNING_MESSAGE
 											   );
-									   }else if(result==1) {//不同意
-
-
 									   }
 
 
@@ -863,11 +942,16 @@ public class MainView extends JFrame {
 								   }
 							   }
 			);}
+		j.setBounds(s,y+10,m,n);
+		i.setOpaque(true);
+		i.setBackground(Color.WHITE);
 		i.setBounds(s,y,m,n);
 		i.setFont(new Font("宋体",Font.BOLD, 20));
+		panelshenqing.add(j);
 		panelshenqing.add(i);
 		panelshenqing.repaint();
 	}
+
 
 
 	/*
@@ -982,9 +1066,10 @@ public class MainView extends JFrame {
 				public void actionPerformed(ActionEvent e) {//成为房主被点击
 					new SignController().becomeHouseHolder();
 					new chengweihangzhu();
+
 					if(tabbedPane.getTabCount()==4) tabbedPane.remove(3);
 					if(tabbedPane.getTabCount()==3) tabbedPane.remove(2);
-					tabbedPane1.addTab("我的房屋", createwodefangwu());
+					tabbedPane.addTab("我是房主", createwoshifangzhu());
 				}
 			});
 			edit2.addActionListener(new ActionListener() {
@@ -1116,7 +1201,7 @@ public class MainView extends JFrame {
 		while(it1.hasNext()) {
 			n=it1.next();
 			newJLablezhangdan(n,10,i,900,25);
-			i=i+30;
+			i=i+50;
 		}
 
 	}
@@ -1160,8 +1245,10 @@ public class MainView extends JFrame {
 	 * 从数据库获得我的订单信息
 	 * */
 	public static void wodedingdan() {
-		panel2.removeAll();
-		panel2.repaint();
+		if(panel2 != null) {
+			panel2.removeAll();
+			panel2.repaint();
+		}
 		int i=20;
 		OrderBean n = new OrderBean();
 		List<OrderBean>see= new OrderController().getOrderList_T();

@@ -30,6 +30,16 @@ public class OrderBean {
 	}
 
 	public String address;
+
+	public int getDuration() {
+		return duration;
+	}
+
+	public void setDuration(int duration) {
+		this.duration = duration;
+	}
+
+	public int duration;
     
     
 	public long getOrder_id() {

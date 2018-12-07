@@ -48,7 +48,7 @@ public class EvaluateDao {
                 "Evaluate.star\n" +
                 "FROM\n" +
                 "    evaluate\n" +
-                "INNER JOIN tenant ON (tenant.tenant_id = evaluate.tenant_dd) where evaluate.house=?;";
+                "INNER JOIN tenant ON (tenant.tenant_id = evaluate.tenant_dd) where evaluate.house=? order by Evaluate.eva_id desc;";
         try {
             List<EvaluateBean> list = qr.query(sql, new BeanListHandler<>(EvaluateBean.class), house_id);
             return list;

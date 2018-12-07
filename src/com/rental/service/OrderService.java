@@ -20,7 +20,7 @@ public class OrderService {
 		BigDecimal income = order.charge.multiply(order.tax).setScale(2,BigDecimal.ROUND_HALF_UP);
 		if(!new SignDao().payMoney(order.household,order.charge,income,0))
 			return false;
-		new BillController().addBill(order.household,income,3,order.house_num);
+		new BillController().addBill(order.household,income,2,order.house_num);
 		order.charge = order.charge.subtract(income);
 		return odo.add(order);
 	}
@@ -30,6 +30,14 @@ public class OrderService {
 	}
 
 	public List<OrderBean> getOrderList_T() {
-		return odo.getOrderList_T();
+		List<OrderBean> list = odo.getOrderList_T();
+		for(OrderBean order : list){
+			order.charge = order.charge.divide(new BigDecimal(0.9),2,BigDecimal.ROUND_HALF_UP);
+		}
+		return list;
+	}
+
+	public boolean checkOut(long house_num) {
+		return odo.checkOut(house_num);
 	}
 }

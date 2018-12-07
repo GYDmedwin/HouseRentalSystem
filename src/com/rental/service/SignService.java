@@ -11,8 +11,8 @@ public class SignService {
 	
 	public UserBean signIn(String userName, String passWord) {
 		UserBean user = sdo.signIn(userName,passWord);
-		BigDecimal money = user.money;
 		if(user!=null) {
+			BigDecimal money = user.money;
 			user = sdo.queryInfo();
 			user.money = money;
 			return user;

@@ -1,6 +1,5 @@
 package com.rental.dao;
 
-import com.rental.controller.BillController;
 import com.rental.domain.HouseBean;
 import com.rental.utils.JDBCUtils;
 import org.apache.commons.dbutils.QueryRunner;
@@ -20,7 +19,6 @@ public class HouseDao {
 			Object[] params = {house.householder,house.type,house.h_type,house.accommodate,house.state,
 					house.rent,house.province,house.city,house.county,house.address,house.set_top};
 			if(qr.update(sql, params)!=0) {
-				new BillController().addBill(house.householder,new BigDecimal(300),0,house.house_id);
 				return true;
 			}
 		} catch (SQLException e) {
