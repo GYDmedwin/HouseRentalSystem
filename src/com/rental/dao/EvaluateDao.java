@@ -37,7 +37,6 @@ public class EvaluateDao {
         return false;
     }
 
-    //TODO 补全SQL语句，要联合查询出名字
     public List<EvaluateBean> getEvaList(long house_id) {
         String sql = "SELECT\n" +
                 "tenant.name,\n" +

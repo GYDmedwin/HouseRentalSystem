@@ -49,7 +49,8 @@ public class OrderDao {
 					"Order_rent.house_num,\n" +
 					"Order_rent.deal,\n" +
 					"Order_rent.charge,\n" +
-					"Order_rent.tax\n" +
+					"Order_rent.tax,\n" +
+					"Order_rent.duration\n"+
 					"FROM\n" +
 					"Order_rent\n" +
 					"INNER JOIN house ON (house.house_id = order_rent.house_num)\n" +
@@ -73,7 +74,8 @@ public class OrderDao {
 					"Order_rent.house_num,\n" +
 					"Order_rent.deal,\n" +
 					"Order_rent.charge,\n" +
-					"Order_rent.tax\n" +
+					"Order_rent.tax,\n" +
+					"Order_rent.duration\n"+
 					"FROM\n" +
 					"Order_rent\n" +
 					"INNER JOIN house ON (house.house_id = order_rent.house_num)\n" +

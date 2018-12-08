@@ -357,7 +357,9 @@ public class MainView extends JFrame {
 	private static void newJLablewodefangwu(HouseBean hou,int s,int y,int m,int n,int xy) {
 		JLabel i=new JLabel();
 
-
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+		j.setForeground(Color.BLACK);
+		j.setBounds(s,y+60,m,n);
 		JPopupMenu popupMenu1 = new JPopupMenu();
 		JMenuItem edit = new JMenuItem("修改价格");
 		JMenuItem edit2 = new JMenuItem("删除！");
@@ -500,6 +502,7 @@ public class MainView extends JFrame {
 		i.setOpaque(true);
 		i.setBackground(Color.WHITE);
 		panel.add(i);
+		panel.add(j);
 		panel.repaint();
 
 	}
@@ -509,6 +512,9 @@ public class MainView extends JFrame {
 	 * 动态的jlbel接口带点击事件（点击显示房屋的详细信息）
 	 * */
 	private static void newJLable(HouseBean hou,int s,int y,int m,int n,int xy,JFrame jf) {
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+		j.setForeground(Color.BLACK);
+		j.setBounds(s,y+60,m,n);
 		JLabel i=new JLabel(hou.province+" | "+hou.city+" | "+hou.county+" | "+hou.type+" | "+hou.h_type);
 		if(xy==2) {
 			i=new JLabel(hou.province+"|"+hou.city+"|"+hou.county+"|"+hou.type+"|"+hou.h_type+"|"+hou.rent+"  || 待租赁");
@@ -564,6 +570,7 @@ public class MainView extends JFrame {
 		i.setOpaque(true);
 		i.setBackground(Color.WHITE);
 		midpanel2.add(i);
+		midpanel2.add(j);
 		midpanel2.repaint();
 		
 	}
@@ -572,6 +579,9 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLablezhangdan(BillBean str,int s,int y,int m,int n) {
 		JLabel i;
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+		j.setForeground(Color.BLACK);
+		j.setBounds(s,y+15,m,n);
 		int type = -1;
 		if(str.type.equals("手续费")) type=0;
 		else if(str.type.equals("置顶费")) type=1;
@@ -656,6 +666,7 @@ public class MainView extends JFrame {
 		i.setBounds(s,y,m,n);
 		i.setFont(new Font("宋体",Font.BOLD, 30));
 		panel1.add(i);
+		panel1.add(j);
 		panel1.repaint();
 	}
 
@@ -667,8 +678,11 @@ public class MainView extends JFrame {
 	 * 动态的jlbel接口带点击事件（点击显示订单的处理）
 	 * */
 	private static void newJLabledingdan(OrderBean str,int s,int y,int m,int n) {
-		JLabel i=new JLabel("姓名："+str.name+"|地址："+str.address+"|租金￥："+str.charge+"|税率 :"+str.tax.multiply(new BigDecimal(100))+"%");
+		JLabel i=new JLabel("姓名："+str.name+"|地址："+str.address+"|时长："+str.duration+"个月"+"|租金￥："+str.charge+"|税率 :"+str.tax.multiply(new BigDecimal(100))+"%");
 		i.setBounds(s,y,m,n);
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+		j.setForeground(Color.BLACK);
+		j.setBounds(s,y+10,m,n);
 		i.setFont(new Font("宋体",Font.BOLD, 20));
 		i.addMouseListener(new MouseListener() {
 							   public void mouseClicked(MouseEvent e) {
@@ -703,7 +717,9 @@ public class MainView extends JFrame {
 		);
 		i.setOpaque(true);
 		i.setBackground(Color.WHITE);
+
 		paneluiyiuy.add(i);
+		paneluiyiuy.add(j);
 		paneluiyiuy.repaint();
 	}
 
@@ -713,8 +729,11 @@ public class MainView extends JFrame {
 	 * 动态的jlbel接口带点击事件（点击显示我的订单的处理）
 	 * */
 	private static void newJLablewodedingdan(OrderBean str,int s,int y,int m,int n) {
-		JLabel i=new JLabel(str.name+"|"+str.address+"|"+str.charge);
+		JLabel i=new JLabel(str.name+"|"+str.address+"|"+"时长："+str.duration+"个月"+str.charge);
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
 		i.setBounds(s,y,m,n);
+		j.setForeground(Color.BLACK);
+		j.setBounds(s,y+10,m,n);
 		i.setFont(new Font("宋体",Font.BOLD, 20));
 		i.addMouseListener(new MouseListener() {
 							   public void mouseClicked(MouseEvent e) {
@@ -773,8 +792,11 @@ public class MainView extends JFrame {
 		);
 		i.setOpaque(true);
 		i.setBackground(Color.WHITE);
-		panel2.add(i);
-		panel2.repaint();
+		if(panel2!=null) {
+			panel2.add(i);
+			panel2.add(j);
+			panel2.repaint();
+		}
 	}
 
 
@@ -783,15 +805,15 @@ public class MainView extends JFrame {
 	 * */
 	private static void newJLableshengqing(SeeBean seebean,int s,int y,int m,int n) {
 		JLabel i;
-		JLabel j=new JLabel("___________________________________________________________________________");
+		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
 		j.setForeground(Color.BLACK);
 		if(seebean.agree!=0) {
 			if(seebean.agree==1)
-				i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id+"     ||已同意");
+				i=new JLabel(seebean.address+"|"+seebean.date+"|"+seebean.name+"|"+seebean.ph_id+"     ||已同意");
 			else
-				i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id+"     ||未同意");
+				i=new JLabel(seebean.address+"|"+seebean.date+"|"+seebean.name+"|"+seebean.ph_id+"     ||未同意");
 		 }
-		else {  i=new JLabel(seebean.address+seebean.date+seebean.name+seebean.ph_id);
+		else {  i=new JLabel(seebean.address+"|"+seebean.date+"|"+seebean.name+"|"+seebean.ph_id+"     ||待处理");
 		
 		i.addMouseListener(new MouseListener() {
 		    public void mouseClicked(MouseEvent e) {
@@ -863,9 +885,9 @@ public class MainView extends JFrame {
 		JLabel j=new JLabel("_________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
 		j.setForeground(Color.BLACK);
 		final HouseBean[] hou = new HouseBean[1];
-		if(seebean.agree==0) i=new JLabel(seebean.address+seebean.date+"     ||待处理");
-		else if(seebean.agree==2) i=new JLabel(seebean.address+seebean.date+"     ||申请失败");
-		else { i=new JLabel(seebean.address+seebean.date+"     ||申请成功");
+		if(seebean.agree==0) i=new JLabel(seebean.address+"|日期："+seebean.date+"     ||待处理");
+		else if(seebean.agree==2) i=new JLabel(seebean.address+"|日期："+seebean.date+"     ||申请失败");
+		else { i=new JLabel(seebean.address+"|日期："+seebean.date+"     ||申请成功");
 			i.addMouseListener(new MouseListener() {
 								   public void mouseClicked(MouseEvent e) {
 									   hou[0] =new OrderController().getHouse(seebean.house_num);
